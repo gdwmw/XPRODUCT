@@ -5,21 +5,30 @@ import { uuid } from "uuidv4";
 
 export default function Main({ languageProps }) {
   const [productName, setProductName] = useState("");
-  const [productNameTernary, setProductNameTernary] = useState(false);
-  const [productCategory, setProductCategory] = useState("Select");
-  const [productCategoryTernary, setProductCategoryTernary] = useState(false);
+  const [productNameTernary, setProductNameBoolean] = useState(false);
+  const [productCategory, setProductCategory] = useState("");
+  const [productCategoryTernary, setProductCategoryBoolean] = useState(false);
   const [productFreshness, setProductFreshness] = useState("");
+  const [productFreshnessBoolean, setProductFreshnessBoolean] = useState("");
   const [productImage, setProductImage] = useState(null);
+  const [productImageBoolean, setProductImageBoolean] = useState(false);
   const [additionalDescription, setAdditionalDescription] = useState("");
-  const [additionalDescriptionTernary, setAdditionalDescriptionTernary] = useState(false);
+  const [additionalDescriptionTernary, setAdditionalDescriptionBoolean] = useState(false);
   const [randomNumber, setRandomNumber] = useState("");
-  const [randomNumberTernary, setRandomNumberTernary] = useState(false);
+  const [randomNumberTernary, setRandomNumberBoolean] = useState(false);
   const [productData, setProductData] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (productName.length >= 6 && productCategory !== "Select" && additionalDescription !== "" && randomNumber !== "") {
+    if (
+      productName.length >= 6 &&
+      productCategory !== "" &&
+      productFreshness !== "" &&
+      productImage !== null &&
+      additionalDescription !== "" &&
+      randomNumber !== ""
+    ) {
       const uuID = uuid();
       const formattedUUID = `${uuID.slice(0, 5)}`;
       const newProductData = {
@@ -33,10 +42,12 @@ export default function Main({ languageProps }) {
       };
       setProductData([...productData, newProductData]);
     } else {
-      setProductNameTernary(true);
-      setProductCategoryTernary(true);
-      setAdditionalDescriptionTernary(true);
-      setRandomNumberTernary(true);
+      setProductNameBoolean(true);
+      setProductCategoryBoolean(true);
+      setAdditionalDescriptionBoolean(true);
+      setRandomNumberBoolean(true);
+      setProductFreshnessBoolean(true);
+      setProductImageBoolean(true);
     }
   };
 
@@ -74,6 +85,10 @@ export default function Main({ languageProps }) {
     input2: {
       en: "Product Category :",
       id: "Kategori Produk :",
+      option: {
+        en: "Select",
+        id: "Pilih",
+      },
     },
     input3: {
       en: "Product Freshness :",
@@ -104,7 +119,7 @@ export default function Main({ languageProps }) {
       id: `"Nama Produk" maksimal 25 karakter!`,
     },
     warning3: {
-      en: "Please choose one of the options!",
+      en: "Please select one of the options!",
       id: "Silakan pilih salah satu opsi!",
     },
     warning4: {
@@ -168,7 +183,7 @@ export default function Main({ languageProps }) {
               id="productname"
               minLength="6"
               maxLength="50"
-              onClick={() => setProductNameTernary(true)}
+              onClick={() => setProductNameBoolean(true)}
               onChange={(e) => setProductName(e.target.value)}
               value={productName}
               className={`${inputFieldStyle.base} ${
@@ -194,12 +209,12 @@ export default function Main({ languageProps }) {
             <select
               name="productcategory"
               id="productcategory"
-              onClick={() => setProductCategoryTernary(true)}
+              onClick={() => setProductCategoryBoolean(true)}
               onChange={(e) => setProductCategory(e.target.value)}
               value={productCategory}
-              className={`${inputFieldStyle.base} ${productCategoryTernary && productCategory === "Select" ? inputFieldStyle.error : ""}`}
+              className={`${inputFieldStyle.base} ${productCategoryTernary && productCategory === "" ? inputFieldStyle.error : ""}`}
             >
-              <option value="Select">Select</option>
+              <option value="">{languageProps === "inggris" ? contentLanguage.input2.option.en : contentLanguage.input2.option.id}</option>
               <option value="A">A</option>
               <option value="B">B</option>
               <option value="C">C</option>
@@ -209,14 +224,18 @@ export default function Main({ languageProps }) {
           <p
             className={`${redText}`}
             style={{
-              display: productCategoryTernary && productCategory === "Select" ? "block" : "none",
+              display: productCategoryTernary && productCategory === "" ? "block" : "none",
             }}
           >
             {languageProps === "inggris" ? contentLanguage.warning3.en : contentLanguage.warning3.id}
           </p>
 
           {/* Product Freshness */}
-          <fieldset className="field-set form-group">
+          <fieldset
+            className={`field-set form-group ${inputFieldStyle.base} ${
+              productFreshnessBoolean && productFreshness === "" ? inputFieldStyle.error : ""
+            }`}
+          >
             <legend className="font-semibold">{languageProps === "inggris" ? contentLanguage.input3.en : contentLanguage.input3.id}</legend>
             {languageProps === "inggris"
               ? contentLanguage.input3.option.en.map((option, index) => (
@@ -228,7 +247,6 @@ export default function Main({ languageProps }) {
                       onClick={() => setProductFreshness(option)}
                       value={option}
                       className="mr-2 outline-none focus:border-2 focus:border-blue-500"
-                      required
                     />
                     <label htmlFor={`option${index + 1}`}>{option}</label>
                     <br />
@@ -244,19 +262,41 @@ export default function Main({ languageProps }) {
                       onClick={() => setProductFreshness(option)}
                       value={option}
                       className="mr-2 outline-none focus:border-2 focus:border-blue-500"
-                      required
                     />
                     <label htmlFor={`option${index + 1}`}>{option}</label>
                     <br />
                   </React.Fragment>
                 ))}
           </fieldset>
+          <p
+            className={`${redText}`}
+            style={{
+              display: productCategoryTernary && productCategory === "" ? "block" : "none",
+            }}
+          >
+            {languageProps === "inggris" ? contentLanguage.warning3.en : contentLanguage.warning3.id}
+          </p>
 
           {/* Image of Product */}
           <div className="form-group">
             <label htmlFor="image">{languageProps === "inggris" ? contentLanguage.input4.en : contentLanguage.input4.id}</label>
-            <input type="file" name="image" id="image" onChange={handleImageChange} className={`${inputFieldStyle.base}`} required />
+            <input
+              type="file"
+              name="image"
+              id="image"
+              onClick={() => setProductImageBoolean(true)}
+              onChange={handleImageChange}
+              className={`${inputFieldStyle.base} ${productImageBoolean && productImage === null ? inputFieldStyle.error : ""}`}
+            />
           </div>
+          <p
+            className={`${redText}`}
+            style={{
+              display: randomNumberTernary && randomNumber === "" ? "block" : "none",
+            }}
+          >
+            {languageProps === "inggris" ? contentLanguage.warning4.en : contentLanguage.warning4.id}
+          </p>
 
           {/* Additional Description */}
           <div className="form-group">
@@ -266,7 +306,7 @@ export default function Main({ languageProps }) {
               id="additionaldesc"
               cols="50"
               rows="10"
-              onClick={() => setAdditionalDescriptionTernary(true)}
+              onClick={() => setAdditionalDescriptionBoolean(true)}
               onChange={(e) => setAdditionalDescription(e.target.value)}
               value={additionalDescription}
               className={`${inputFieldStyle.base} ${additionalDescriptionTernary && additionalDescription === "" ? inputFieldStyle.error : ""}`}
@@ -288,7 +328,7 @@ export default function Main({ languageProps }) {
               type="text"
               name="price"
               id="price"
-              onClick={() => setRandomNumberTernary(true)}
+              onClick={() => setRandomNumberBoolean(true)}
               onInput={(e) => (e.target.value = e.target.value.replace(/[^0-9]/g, ""))}
               value={randomNumber}
               className={`${inputFieldStyle.base} ${randomNumberTernary && randomNumber === "" ? inputFieldStyle.error : ""}`}
