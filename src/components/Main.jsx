@@ -292,7 +292,7 @@ export default function Main({ languageProps }) {
               onInput={(e) => (e.target.value = e.target.value.replace(/[^0-9]/g, ""))}
               value={randomNumber}
               className={`${inputFieldStyle.base} ${randomNumberTernary && randomNumber === "" ? inputFieldStyle.error : ""}`}
-             disabled
+              disabled
             />
           </div>
           <p
@@ -333,7 +333,7 @@ export default function Main({ languageProps }) {
       </section>
 
       {/* Table */}
-      <section className="mt-5">
+      <section className="mt-5 overflow-scroll">
         <label htmlFor="productlist" className="mb-1 block">
           {languageProps === "inggris" ? contentLanguage.table.en : contentLanguage.table.id}
         </label>
