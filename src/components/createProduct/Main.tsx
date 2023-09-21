@@ -117,6 +117,26 @@ export default function Main({ languageProps }: MainProps) {
   const [productData, setProductData] = useState<ProductData[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        setProductImage(result);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const generateRandomNumber = () => {
+    const random: number = Math.floor(Math.random() * 1000);
+    setRandomNumber(random);
+    console.log("Random Number:", random);
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
@@ -146,25 +166,7 @@ export default function Main({ languageProps }: MainProps) {
     }
   };
 
-  const generateRandomNumber = () => {
-    const random: number = Math.floor(Math.random() * 1000);
-    setRandomNumber(random);
-    console.log("Random Number:", random);
-  };
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-        setProductImage(result);
-      };
-
-      reader.readAsDataURL(file);
-    }
-  };
+  const filteredProductData = productData.filter((data) => data.productName.toLowerCase().includes(searchValue.toLowerCase()));
 
   const handleDelete = (index: number) => {
     const shouldDelete = window.confirm(languageProps === "inggris" ? contentLanguage.table.alert.en : contentLanguage.table.alert.id);
@@ -174,8 +176,6 @@ export default function Main({ languageProps }: MainProps) {
       setProductData(updatedProductData);
     }
   };
-
-  const filteredProductData = productData.filter((data) => data.productName.toLowerCase().includes(searchValue.toLowerCase()));
 
   const inputFieldStyle = {
     base: "w-full rounded border-2 border-gray-200 px-4 py-2 outline-none focus:border-tailwindBlue",
