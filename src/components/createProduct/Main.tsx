@@ -83,7 +83,11 @@ export default function Main({ languageProps }: MainProps) {
         en: ["Product Name", "Category", "Freshness", "Image", "Additional Description", "Price", "Action"],
         id: ["Nama Produk", "Kategori", "Kesegaran", "Gambar", "Deskripsi Tambahan", "Harga", "Aksi"],
       },
-      button: {
+      button1: {
+        en: "Detail",
+        id: "Detail",
+      },
+      button2: {
         en: "Delete",
         id: "Hapus",
       },
@@ -99,17 +103,17 @@ export default function Main({ languageProps }: MainProps) {
   };
 
   const [productName, setProductName] = useState<string>("");
-  const [productNameTernary, setProductNameBoolean] = useState<boolean>(false);
+  const [productNameBoolean, setProductNameBoolean] = useState<boolean>(false);
   const [productCategory, setProductCategory] = useState<string>("");
-  const [productCategoryTernary, setProductCategoryBoolean] = useState<boolean>(false);
+  const [productCategoryBoolean, setProductCategoryBoolean] = useState<boolean>(false);
   const [productFreshness, setProductFreshness] = useState<string>("");
   const [productFreshnessBoolean, setProductFreshnessBoolean] = useState<boolean>(false);
   const [productImage, setProductImage] = useState<string | null>(null);
   const [productImageBoolean, setProductImageBoolean] = useState<boolean>(false);
   const [additionalDescription, setAdditionalDescription] = useState<string>("");
-  const [additionalDescriptionTernary, setAdditionalDescriptionBoolean] = useState<boolean>(false);
+  const [additionalDescriptionBoolean, setAdditionalDescriptionBoolean] = useState<boolean>(false);
   const [randomNumber, setRandomNumber] = useState<number | undefined>(undefined);
-  const [randomNumberTernary, setRandomNumberBoolean] = useState<boolean>(false);
+  const [randomNumberBoolean, setRandomNumberBoolean] = useState<boolean>(false);
   const [productData, setProductData] = useState<ProductData[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
 
@@ -174,16 +178,16 @@ export default function Main({ languageProps }: MainProps) {
   const filteredProductData = productData.filter((data) => data.productName.toLowerCase().includes(searchValue.toLowerCase()));
 
   const inputFieldStyle = {
-    base: "w-full rounded border-2 px-4 py-2 outline-none focus:border-blue-500",
-    error: "border-red-500",
+    base: "w-full rounded border-2 border-gray-200 px-4 py-2 outline-none focus:border-tailwindBlue",
+    error: "w-full rounded border-2 border-red-300 px-4 py-2 outline-none focus:border-tailwindBlue",
   };
 
-  const redText = "text-red-500";
+  const redText = "text-red-400";
 
   const buttonStyle = {
-    primary: "cursor-pointer rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 transition duration-300",
-    secondary: "cursor-pointer rounded bg-amber-500 px-4 py-2 text-white hover:bg-amber-600 transition duration-300",
-    delete: "mx-auto my-2 bg-red-500 block text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300",
+    primary: "rounded bg-tailwindBlue px-4 py-2 text-white hover:bg-tailwindBlueSecondary",
+    secondary: "rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary",
+    delete: "rounded bg-red-400 px-4 py-2 text-white hover:bg-red-500",
   };
 
   return (
@@ -201,17 +205,16 @@ export default function Main({ languageProps }: MainProps) {
               onClick={() => setProductNameBoolean(true)}
               onChange={(e) => setProductName(e.target.value)}
               value={productName}
-              className={`${inputFieldStyle.base} ${
-                productNameTernary && (productName.length < 6 || productName.length > 25) ? inputFieldStyle.error : ""
+              className={`${
+                productNameBoolean && (productName.length < 6 || productName.length > 25) ? inputFieldStyle.error : inputFieldStyle.base
               }`}
             />
           </div>
           <p
             className={`${redText}`}
             style={{
-              display: productNameTernary && productName.length < 6 ? "block" : "none",
-            }}
-          >
+              display: productNameBoolean && productName.length < 6 ? "block" : "none",
+            }}>
             {languageProps === "inggris" ? contentLanguage.warning1.en : contentLanguage.warning1.id}
           </p>
           <p className={`${redText}`} style={{ display: productName.length > 25 ? "block" : "none" }}>
@@ -227,8 +230,7 @@ export default function Main({ languageProps }: MainProps) {
               onClick={() => setProductCategoryBoolean(true)}
               onChange={(e) => setProductCategory(e.target.value)}
               value={productCategory}
-              className={`${inputFieldStyle.base} ${productCategoryTernary && productCategory === "" ? inputFieldStyle.error : ""}`}
-            >
+              className={`${productCategoryBoolean && productCategory === "" ? inputFieldStyle.error : inputFieldStyle.base}`}>
               <option value="">{languageProps === "inggris" ? contentLanguage.input2.option.en : contentLanguage.input2.option.id}</option>
               <option value="A">A</option>
               <option value="B">B</option>
@@ -239,18 +241,14 @@ export default function Main({ languageProps }: MainProps) {
           <p
             className={`${redText}`}
             style={{
-              display: productCategoryTernary && productCategory === "" ? "block" : "none",
-            }}
-          >
+              display: productCategoryBoolean && productCategory === "" ? "block" : "none",
+            }}>
             {languageProps === "inggris" ? contentLanguage.warning3.en : contentLanguage.warning3.id}
           </p>
 
           {/* Product Freshness */}
           <fieldset
-            className={`field-set form-group ${inputFieldStyle.base} ${
-              productFreshnessBoolean && productFreshness === "" ? inputFieldStyle.error : ""
-            }`}
-          >
+            className={`field-set form-group ${productFreshnessBoolean && productFreshness === "" ? inputFieldStyle.error : inputFieldStyle.base}`}>
             <legend className="font-semibold">{languageProps === "inggris" ? contentLanguage.input3.en : contentLanguage.input3.id}</legend>
             {languageProps === "inggris"
               ? contentLanguage.input3.option.en.map((option, index) => (
@@ -261,7 +259,7 @@ export default function Main({ languageProps }: MainProps) {
                       id={`option${index + 1}`}
                       onClick={() => setProductFreshness(option)}
                       value={option}
-                      className="mr-2 outline-none focus:border-2 focus:border-blue-500"
+                      className="mr-2 h-4 w-4 border-gray-400 bg-gray-100 text-tailwindBlue focus:ring-2 focus:ring-tailwindBlue"
                     />
                     <label htmlFor={`option${index + 1}`}>{option}</label>
                     <br />
@@ -275,7 +273,7 @@ export default function Main({ languageProps }: MainProps) {
                       id={`option${index + 1}`}
                       onClick={() => setProductFreshness(option)}
                       value={option}
-                      className="mr-2 outline-none focus:border-2 focus:border-blue-500"
+                      className="mr-2 h-4 w-4 border-gray-400 bg-gray-100 text-tailwindBlue focus:ring-2 focus:ring-tailwindBlue"
                     />
                     <label htmlFor={`option${index + 1}`}>{option}</label>
                     <br />
@@ -285,9 +283,8 @@ export default function Main({ languageProps }: MainProps) {
           <p
             className={`${redText}`}
             style={{
-              display: productCategoryTernary && productCategory === "" ? "block" : "none",
-            }}
-          >
+              display: productFreshnessBoolean && productFreshness === "" ? "block" : "none",
+            }}>
             {languageProps === "inggris" ? contentLanguage.warning3.en : contentLanguage.warning3.id}
           </p>
 
@@ -300,15 +297,14 @@ export default function Main({ languageProps }: MainProps) {
               name="image"
               id="image"
               onChange={handleImageChange}
-              className={`${inputFieldStyle.base} ${productImageBoolean && productImage === null ? inputFieldStyle.error : ""}`}
+              className={`${productImageBoolean && productImage === null ? inputFieldStyle.error : inputFieldStyle.base}`}
             />
           </div>
           <p
             className={`${redText}`}
             style={{
               display: productImageBoolean && productImage === null ? "block" : "none",
-            }}
-          >
+            }}>
             {languageProps === "inggris" ? contentLanguage.warning4.en : contentLanguage.warning4.id}
           </p>
 
@@ -323,15 +319,13 @@ export default function Main({ languageProps }: MainProps) {
               onClick={() => setAdditionalDescriptionBoolean(true)}
               onChange={(e) => setAdditionalDescription(e.target.value)}
               value={additionalDescription}
-              className={`${inputFieldStyle.base} ${additionalDescriptionTernary && additionalDescription === "" ? inputFieldStyle.error : ""}`}
-            ></textarea>
+              className={`${additionalDescriptionBoolean && additionalDescription === "" ? inputFieldStyle.error : inputFieldStyle.base}`}></textarea>
           </div>
           <p
             className={`${redText}`}
             style={{
-              display: additionalDescriptionTernary && additionalDescription === "" ? "block" : "none",
-            }}
-          >
+              display: additionalDescriptionBoolean && additionalDescription === "" ? "block" : "none",
+            }}>
             {languageProps === "inggris" ? contentLanguage.warning4.en : contentLanguage.warning4.id}
           </p>
 
@@ -344,16 +338,15 @@ export default function Main({ languageProps }: MainProps) {
               id="price"
               onClick={() => setRandomNumberBoolean(true)}
               value={randomNumber}
-              className={`${inputFieldStyle.base} ${randomNumberTernary && randomNumber === undefined ? inputFieldStyle.error : ""}`}
+              className={`${randomNumberBoolean && randomNumber === undefined ? inputFieldStyle.error : inputFieldStyle.base}`}
               disabled
             />
           </div>
           <p
             className={`${redText}`}
             style={{
-              display: randomNumberTernary && randomNumber === undefined ? "block" : "none",
-            }}
-          >
+              display: randomNumberBoolean && randomNumber === undefined ? "block" : "none",
+            }}>
             {languageProps === "inggris" ? contentLanguage.warning4.en : contentLanguage.warning4.id}
           </p>
 
@@ -379,7 +372,7 @@ export default function Main({ languageProps }: MainProps) {
           type="text"
           name="searchusername"
           id="searchusername"
-          className="w-[300px] rounded border-2 px-4 py-2 outline-none focus:border-blue-500"
+          className="w-[300px] rounded border-2 border-gray-200 px-4 py-2 outline-none focus:border-tailwindBlue"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
         />
@@ -406,22 +399,18 @@ export default function Main({ languageProps }: MainProps) {
           <tbody className="text-center">
             {filteredProductData.map((data, index) => (
               <tr key={index}>
-                <td className="border-2 px-2 py-2">{`1000.0${index + 1}`}</td>
+                <td className="border-2 px-2 py-2">{`0${index + 1}`}</td>
                 <td className="border-2 px-2 py-2">{data.productName}</td>
                 <td className="border-2 px-2 py-2">{data.productCategory}</td>
                 <td className="border-2 px-2 py-2">{data.productFreshness}</td>
                 <td className="border-2 px-2 py-2">
-                  {data.productImage ? (
-                    <Image src={data.productImage} alt="Product" width={100} height={0} style={{ height: "auto", margin: "0px auto 0px auto" }} />
-                  ) : (
-                    ""
-                  )}
+                  {data.productImage ? <Image src={data.productImage} alt="Product Image" width={100} height={0} className="mx-auto h-auto" /> : ""}
                 </td>
                 <td className="border-2 px-2 py-2">{data.additionalDescription}</td>
                 <td className="border-2 px-2 py-2">{data.randomNumber}</td>
-                <td className="border-2 px-2 py-2">
+                <td className="space-y-2 border-2 px-2 py-2">
                   <button className={`${buttonStyle.delete}`} onClick={() => handleDelete(index)}>
-                    {languageProps === "inggris" ? contentLanguage.table.button.en : contentLanguage.table.button.id}
+                    {languageProps === "inggris" ? contentLanguage.table.button2.en : contentLanguage.table.button2.id}
                   </button>
                 </td>
               </tr>
