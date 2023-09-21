@@ -2,7 +2,7 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Cookies from "js-cookie";
+import { useCookies } from "react-cookie";
 import tailwindImage from "@/images/Tailwind.svg";
 
 interface FormData {
@@ -26,10 +26,14 @@ export default function Login() {
     });
   };
 
+  const [cookies, setCookie] = useCookies(["isLogin"]);
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (formData.email === "admin@gmail.com" && formData.password === "admin") {
-      Cookies.set("isLogin", "true", { expires: 0.5 / 48 });
+      setCookie("isLogin", "true", {
+        maxAge: 1800,
+      });
       router.push("/createproduct");
     } else {
       setIncorrectData("Incorrect email or password");

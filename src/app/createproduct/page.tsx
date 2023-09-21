@@ -1,7 +1,7 @@
 "use client";
 import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
+import { useCookies } from "react-cookie";
 import Header from "@/components/createProduct/Header";
 import Main from "@/components/createProduct/Main";
 import Footer from "@/components/createProduct/Footer";
@@ -14,10 +14,12 @@ export default function CreateProduct() {
     </section>
   );
 
+  const [cookies] = useCookies(["isLogin"]);
+  const isLoggedIn = cookies.isLogin === "true";
   const router = useRouter();
 
   useEffect(() => {
-    if (Cookies.get("isLogin") === "true") {
+    if (isLoggedIn) {
       setTimeout(() => {
         setWelcome(
           <section className="fixed right-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-gray-200/50 opacity-0 backdrop-blur-md transition-all duration-500">
