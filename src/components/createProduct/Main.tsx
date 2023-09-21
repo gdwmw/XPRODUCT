@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-
+import axios from "axios";
 interface ProductData {
+  id: string | null; // Tambahkan properti id
   productName: string;
   productCategory: string;
   productFreshness: string;
@@ -137,7 +138,7 @@ export default function Main({ languageProps }: MainProps) {
     console.log("Random Number:", random);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
       productName.length >= 6 &&
@@ -148,6 +149,7 @@ export default function Main({ languageProps }: MainProps) {
       randomNumber !== 0
     ) {
       const newProductData: ProductData = {
+        id: null, // Inisialisasi id dengan null
         productName,
         productCategory,
         productFreshness,
@@ -155,8 +157,21 @@ export default function Main({ languageProps }: MainProps) {
         additionalDescription,
         randomNumber,
       };
-      setProductData([...productData, newProductData]);
+
+      try {
+        // Kirim data ke API
+        const response = await axios.post("https://650c816247af3fd22f67b58e.mockapi.io/ProductData", newProductData);
+
+        // Tambahkan data baru yang diterima dari API ke daftar produk
+        setProductData([...productData, response.data]);
+
+        // Me-reload halaman saat ini
+        window.location.reload();
+      } catch (error) {
+        console.error("Error sending data:", error);
+      }
     } else {
+      // Set state untuk menampilkan pesan kesalahan
       setProductNameBoolean(true);
       setProductCategoryBoolean(true);
       setAdditionalDescriptionBoolean(true);
@@ -166,14 +181,44 @@ export default function Main({ languageProps }: MainProps) {
     }
   };
 
+  useEffect(() => {
+    // Mengambil data dari API saat komponen dimuat
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://650c816247af3fd22f67b58e.mockapi.io/ProductData");
+        setProductData(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   const filteredProductData = productData.filter((data) => data.productName.toLowerCase().includes(searchValue.toLowerCase()));
 
-  const handleDelete = (index: number) => {
+  // Fungsi untuk menghapus data berdasarkan ID
+  const deleteProduct = async (id: number) => {
+    try {
+      await axios.delete(`https://650c816247af3fd22f67b58e.mockapi.io/ProductData/${id}`);
+    } catch (error) {
+      console.error("Error deleting data:", error);
+    }
+  };
+
+  // Fungsi untuk menangani penghapusan data
+  const handleDelete = (id: any) => {
     const shouldDelete = window.confirm(languageProps === "inggris" ? contentLanguage.table.alert.en : contentLanguage.table.alert.id);
     if (shouldDelete) {
+      // Hapus data dari daftar produk dan kirim permintaan DELETE ke API
       const updatedProductData = [...productData];
-      updatedProductData.splice(index, 1);
-      setProductData(updatedProductData);
+      const deletedIndex = updatedProductData.findIndex((item) => item.id === id);
+      if (deletedIndex !== -1) {
+        updatedProductData.splice(deletedIndex, 1);
+        setProductData(updatedProductData);
+
+        // Panggil fungsi untuk menghapus data dari API
+        deleteProduct(id);
+      }
     }
   };
 
@@ -409,7 +454,7 @@ export default function Main({ languageProps }: MainProps) {
                 <td className="border-2 px-2 py-2">{data.additionalDescription}</td>
                 <td className="border-2 px-2 py-2">{data.randomNumber}</td>
                 <td className="space-y-2 border-2 px-2 py-2">
-                  <button className={`${buttonStyle.delete}`} onClick={() => handleDelete(index)}>
+                  <button className={`${buttonStyle.delete}`} onClick={() => handleDelete(data.id)}>
                     {languageProps === "inggris" ? contentLanguage.table.button2.en : contentLanguage.table.button2.id}
                   </button>
                 </td>
