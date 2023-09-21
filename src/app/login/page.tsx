@@ -1,7 +1,8 @@
 "use client";
 import { useState, ChangeEvent, FormEvent } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Cookies from "js-cookie";
 import tailwindImage from "@/images/Tailwind.svg";
 
 interface FormData {
@@ -28,7 +29,7 @@ export default function Login() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (formData.email === "admin@gmail.com" && formData.password === "admin") {
-      localStorage.setItem("isLogin", "true");
+      Cookies.set("isLogin", "true", { expires: 0.5 / 48 });
       router.push("/createproduct");
     } else {
       setIncorrectData("Incorrect email or password");
