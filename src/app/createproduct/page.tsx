@@ -15,11 +15,11 @@ export default function CreateProduct() {
   );
 
   const [cookies] = useCookies(["isLogin"]);
-  const isLoggedIn = cookies.isLogin === "true";
+  const isLoggedIn = cookies.isLogin;
   const router = useRouter();
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn === true) {
       setTimeout(() => {
         setWelcome(
           <section className="fixed right-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-gray-200/50 opacity-0 backdrop-blur-md transition-all duration-500">
