@@ -1,2 +1,1 @@
-Email : admin@gmail.com
-Password : admin
+Email : admin@gmail.com <br/> Password : admin
