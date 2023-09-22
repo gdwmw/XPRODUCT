@@ -448,7 +448,7 @@ export default function Main({ languageProps }: MainProps) {
                 <td className="border-2 px-2 py-2">{data.randomNumber}</td>
                 <td className="border-2 px-2 py-2">
                   <div className="flex items-center justify-center gap-3">
-                    <Link href={`/productdetail/${index + 1}`} scroll={false}>
+                    <Link href={`/productdetail/${index + 1}`} prefetch={true}>
                       <button className={`${buttonStyle.secondary}`}>
                         {languageProps === "inggris" ? contentLanguage.table.button1.en : contentLanguage.table.button1.id}
                       </button>
