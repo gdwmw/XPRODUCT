@@ -147,6 +147,7 @@ export default function Main({ languageProps }: MainProps) {
     e.preventDefault();
     if (
       productName.length >= 6 &&
+      productName.length <= 25 &&
       productCategory !== "" &&
       productFreshness !== "" &&
       productImage !== null &&
