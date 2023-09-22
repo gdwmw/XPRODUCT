@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { fetchProductData } from "@/utils/fetchProductData";
 import { deleteProductData } from "@/utils/deleteProductData";
 import { postProductData } from "@/utils/postProductData";
@@ -214,8 +214,6 @@ export default function Main({ languageProps }: MainProps) {
       }
     }
   };
-
-  const router = useRouter();
 
   const inputFieldStyle = {
     base: "w-full rounded border-2 border-gray-200 px-4 py-2 outline-none focus:border-tailwindBlue",
@@ -450,9 +448,11 @@ export default function Main({ languageProps }: MainProps) {
                 <td className="border-2 px-2 py-2">{data.randomNumber}</td>
                 <td className="border-2 px-2 py-2">
                   <div className="flex items-center justify-center gap-3">
-                    <button className={`${buttonStyle.secondary}`} onClick={() => router.push(`/productdetail/${index + 1}`)}>
-                      {languageProps === "inggris" ? contentLanguage.table.button1.en : contentLanguage.table.button1.id}
-                    </button>
+                    <Link href={`/productdetail/${index + 1}`} scroll={false}>
+                      <button className={`${buttonStyle.secondary}`}>
+                        {languageProps === "inggris" ? contentLanguage.table.button1.en : contentLanguage.table.button1.id}
+                      </button>
+                    </Link>
                     <button className={`${buttonStyle.delete}`} onClick={() => handleDelete(data.id)}>
                       {languageProps === "inggris" ? contentLanguage.table.button2.en : contentLanguage.table.button2.id}
                     </button>
