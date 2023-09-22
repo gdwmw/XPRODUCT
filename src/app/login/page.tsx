@@ -26,7 +26,7 @@ export default function Login() {
     });
   };
 
-  const [cookies, setCookie] = useCookies(["isLogin"]);
+  const [cookies, setCookie] = useCookies();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
