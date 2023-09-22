@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import axios from "axios";
+
 interface ProductData {
-  id: string | null; // Tambahkan properti id
+  id: number; // Tambahkan properti id
   productName: string;
   productCategory: string;
   productFreshness: string;
   productImage: string | null;
   additionalDescription: string;
-  randomNumber: number | undefined;
+  randomNumber: number;
 }
 
 type MainProps = {
@@ -103,6 +104,7 @@ export default function Main({ languageProps }: MainProps) {
     },
   };
 
+  let id: number = 0;
   const [productName, setProductName] = useState<string>("");
   const [productNameBoolean, setProductNameBoolean] = useState<boolean>(false);
   const [productCategory, setProductCategory] = useState<string>("");
@@ -113,7 +115,7 @@ export default function Main({ languageProps }: MainProps) {
   const [productImageBoolean, setProductImageBoolean] = useState<boolean>(false);
   const [additionalDescription, setAdditionalDescription] = useState<string>("");
   const [additionalDescriptionBoolean, setAdditionalDescriptionBoolean] = useState<boolean>(false);
-  const [randomNumber, setRandomNumber] = useState<number | undefined>(undefined);
+  const [randomNumber, setRandomNumber] = useState<number>(0);
   const [randomNumberBoolean, setRandomNumberBoolean] = useState<boolean>(false);
   const [productData, setProductData] = useState<ProductData[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
@@ -149,7 +151,7 @@ export default function Main({ languageProps }: MainProps) {
       randomNumber !== 0
     ) {
       const newProductData: ProductData = {
-        id: null, // Inisialisasi id dengan null
+        id,
         productName,
         productCategory,
         productFreshness,
@@ -166,7 +168,16 @@ export default function Main({ languageProps }: MainProps) {
         setProductData([...productData, response.data]);
 
         // Me-reload halaman saat ini
-        window.location.reload();
+        setProductName("---");
+        setProductCategory("");
+        setAdditionalDescription("---");
+        setRandomNumber(0);
+        setProductNameBoolean(false);
+        setProductCategoryBoolean(false);
+        setProductFreshnessBoolean(false);
+        setProductImageBoolean(false);
+        setAdditionalDescriptionBoolean(false);
+        setRandomNumberBoolean(false);
       } catch (error) {
         console.error("Error sending data:", error);
       }
@@ -174,10 +185,10 @@ export default function Main({ languageProps }: MainProps) {
       // Set state untuk menampilkan pesan kesalahan
       setProductNameBoolean(true);
       setProductCategoryBoolean(true);
-      setAdditionalDescriptionBoolean(true);
-      setRandomNumberBoolean(true);
       setProductFreshnessBoolean(true);
       setProductImageBoolean(true);
+      setAdditionalDescriptionBoolean(true);
+      setRandomNumberBoolean(true);
     }
   };
 
@@ -206,7 +217,7 @@ export default function Main({ languageProps }: MainProps) {
   };
 
   // Fungsi untuk menangani penghapusan data
-  const handleDelete = (id: any) => {
+  const handleDelete = (id: number) => {
     const shouldDelete = window.confirm(languageProps === "inggris" ? contentLanguage.table.alert.en : contentLanguage.table.alert.id);
     if (shouldDelete) {
       // Hapus data dari daftar produk dan kirim permintaan DELETE ke API
@@ -383,14 +394,14 @@ export default function Main({ languageProps }: MainProps) {
               id="price"
               onClick={() => setRandomNumberBoolean(true)}
               value={randomNumber}
-              className={`${randomNumberBoolean && randomNumber === undefined ? inputFieldStyle.error : inputFieldStyle.base}`}
+              className={`${randomNumberBoolean && randomNumber === 0 ? inputFieldStyle.error : inputFieldStyle.base}`}
               disabled
             />
           </div>
           <p
             className={`${redText}`}
             style={{
-              display: randomNumberBoolean && randomNumber === undefined ? "block" : "none",
+              display: randomNumberBoolean && randomNumber === 0 ? "block" : "none",
             }}>
             {languageProps === "inggris" ? contentLanguage.warning4.en : contentLanguage.warning4.id}
           </p>
