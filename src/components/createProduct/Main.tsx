@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { fetchProductData } from "@/utils/fetchProductData";
 import { deleteProductData } from "@/utils/deleteProductData";
 import { postProductData } from "@/utils/postProductData";
 
 interface ProductData {
-  id: number; // Tambahkan properti id
+  id: number;
   productName: string;
   productCategory: string;
   productFreshness: string;
@@ -163,12 +164,9 @@ export default function Main({ languageProps }: MainProps) {
         randomNumber,
       };
 
-      // Kirim data ke API
       const response = await postProductData(newProductData);
-      // Tambahkan data baru yang diterima dari API ke daftar produk
       setProductData([...productData, response]);
 
-      // Me-reload halaman saat ini
       setProductName("---");
       setProductCategory("");
       setAdditionalDescription("---");
@@ -180,7 +178,6 @@ export default function Main({ languageProps }: MainProps) {
       setAdditionalDescriptionBoolean(false);
       setRandomNumberBoolean(false);
     } else {
-      // Set state untuk menampilkan pesan kesalahan
       setProductNameBoolean(true);
       setProductCategoryBoolean(true);
       setProductFreshnessBoolean(true);
@@ -204,22 +201,21 @@ export default function Main({ languageProps }: MainProps) {
     await deleteProductData(id);
   };
 
-  // Fungsi untuk menangani penghapusan data
   const handleDelete = (id: number) => {
     const shouldDelete = window.confirm(languageProps === "inggris" ? contentLanguage.table.alert.en : contentLanguage.table.alert.id);
     if (shouldDelete) {
-      // Hapus data dari daftar produk dan kirim permintaan DELETE ke API
       const updatedProductData = [...productData];
       const deletedIndex = updatedProductData.findIndex((item) => item.id === id);
       if (deletedIndex !== -1) {
         updatedProductData.splice(deletedIndex, 1);
         setProductData(updatedProductData);
 
-        // Panggil fungsi untuk menghapus data dari API
         deleteProduct(id);
       }
     }
   };
+
+  const router = useRouter();
 
   const inputFieldStyle = {
     base: "w-full rounded border-2 border-gray-200 px-4 py-2 outline-none focus:border-tailwindBlue",
@@ -452,10 +448,15 @@ export default function Main({ languageProps }: MainProps) {
                 </td>
                 <td className="border-2 px-2 py-2">{data.additionalDescription}</td>
                 <td className="border-2 px-2 py-2">{data.randomNumber}</td>
-                <td className="space-y-2 border-2 px-2 py-2">
-                  <button className={`${buttonStyle.delete}`} onClick={() => handleDelete(data.id)}>
-                    {languageProps === "inggris" ? contentLanguage.table.button2.en : contentLanguage.table.button2.id}
-                  </button>
+                <td className="border-2 px-2 py-2">
+                  <div className="flex items-center justify-center gap-3">
+                    <button className={`${buttonStyle.secondary}`} onClick={() => router.push(`/productdetail/${index + 1}`)}>
+                      {languageProps === "inggris" ? contentLanguage.table.button1.en : contentLanguage.table.button1.id}
+                    </button>
+                    <button className={`${buttonStyle.delete}`} onClick={() => handleDelete(data.id)}>
+                      {languageProps === "inggris" ? contentLanguage.table.button2.en : contentLanguage.table.button2.id}
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
