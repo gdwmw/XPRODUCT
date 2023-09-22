@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import axios from "axios";
+import { fetchProductData } from "@/utils/fetchProductData";
+import { deleteProductData } from "@/utils/deleteProductData";
+import { postProductData } from "@/utils/postProductData";
 
 interface ProductData {
   id: number; // Tambahkan properti id
@@ -150,6 +152,7 @@ export default function Main({ languageProps }: MainProps) {
       additionalDescription !== "" &&
       randomNumber !== 0
     ) {
+      id++;
       const newProductData: ProductData = {
         id,
         productName,
@@ -160,27 +163,22 @@ export default function Main({ languageProps }: MainProps) {
         randomNumber,
       };
 
-      try {
-        // Kirim data ke API
-        const response = await axios.post("https://650c816247af3fd22f67b58e.mockapi.io/ProductData", newProductData);
+      // Kirim data ke API
+      const response = await postProductData(newProductData);
+      // Tambahkan data baru yang diterima dari API ke daftar produk
+      setProductData([...productData, response]);
 
-        // Tambahkan data baru yang diterima dari API ke daftar produk
-        setProductData([...productData, response.data]);
-
-        // Me-reload halaman saat ini
-        setProductName("---");
-        setProductCategory("");
-        setAdditionalDescription("---");
-        setRandomNumber(0);
-        setProductNameBoolean(false);
-        setProductCategoryBoolean(false);
-        setProductFreshnessBoolean(false);
-        setProductImageBoolean(false);
-        setAdditionalDescriptionBoolean(false);
-        setRandomNumberBoolean(false);
-      } catch (error) {
-        console.error("Error sending data:", error);
-      }
+      // Me-reload halaman saat ini
+      setProductName("---");
+      setProductCategory("");
+      setAdditionalDescription("---");
+      setRandomNumber(0);
+      setProductNameBoolean(false);
+      setProductCategoryBoolean(false);
+      setProductFreshnessBoolean(false);
+      setProductImageBoolean(false);
+      setAdditionalDescriptionBoolean(false);
+      setRandomNumberBoolean(false);
     } else {
       // Set state untuk menampilkan pesan kesalahan
       setProductNameBoolean(true);
@@ -193,27 +191,17 @@ export default function Main({ languageProps }: MainProps) {
   };
 
   useEffect(() => {
-    // Mengambil data dari API saat komponen dimuat
     const fetchData = async () => {
-      try {
-        const response = await axios.get("https://650c816247af3fd22f67b58e.mockapi.io/ProductData");
-        setProductData(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+      const response = await fetchProductData();
+      setProductData(response);
     };
     fetchData();
   }, []);
 
   const filteredProductData = productData.filter((data) => data.productName.toLowerCase().includes(searchValue.toLowerCase()));
 
-  // Fungsi untuk menghapus data berdasarkan ID
   const deleteProduct = async (id: number) => {
-    try {
-      await axios.delete(`https://650c816247af3fd22f67b58e.mockapi.io/ProductData/${id}`);
-    } catch (error) {
-      console.error("Error deleting data:", error);
-    }
+    await deleteProductData(id);
   };
 
   // Fungsi untuk menangani penghapusan data
