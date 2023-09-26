@@ -96,11 +96,11 @@ export default function Main() {
 
           {/* PRODUCT FRESHNESS */}
           <fieldset
-            className={`border-2 p-2 flex flex-col ${
+            className={`flex flex-col border-2 p-2 ${
               warning.w3 ? (value.productFreshness ? "border-gray-200" : "border-red-300") : "border-gray-200"
             }`}
           >
-            <legend className="font-semibold px-2">Product Freshness :</legend>
+            <legend className="px-2 font-semibold">Product Freshness :</legend>
             <InputRadio
               label="Brand New"
               name="productFreshness"
@@ -174,7 +174,7 @@ export default function Main() {
       </section>
 
       {/* SEARCH */}
-      <section className="w-[300px] mt-5">
+      <section className="mt-5 w-[300px]">
         <InputText
           label="Search by Product Name :"
           name="searchProductName"

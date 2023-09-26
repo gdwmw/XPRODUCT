@@ -21,7 +21,7 @@ export default function Header({ languageProps, languageChangeButtonProps }: Hea
   return (
     <header className="container mx-auto px-5 py-6 text-center">
       <Image src={tailwindImage} width={150} height={0} alt="Tailwind" className="mx-auto mb-5 mt-1 h-auto" />
-      <h1 className="text-tailwindBlue text-3xl font-bold">{languageProps == "inggris" ? contentLanguage.title.en : contentLanguage.title.id}</h1>
+      <h1 className="text-3xl font-bold text-tailwindBlue">{languageProps == "inggris" ? contentLanguage.title.en : contentLanguage.title.id}</h1>
       <p>{languageProps == "inggris" ? contentLanguage.description.en : contentLanguage.description.id}</p>
       {languageChangeButtonProps}
     </header>

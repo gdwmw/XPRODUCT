@@ -87,7 +87,8 @@ export default function Login() {
             <div className="mb-6">
               <button
                 type="submit"
-                className="w-full rounded-md bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary focus:outline-none">
+                className="w-full rounded-md bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary focus:outline-none"
+              >
                 Login
               </button>
             </div>

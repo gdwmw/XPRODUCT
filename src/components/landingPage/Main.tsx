@@ -19,14 +19,16 @@ export default function Main() {
                 onClick={() => {
                   router.push("/login");
                 }}
-                className="rounded-full bg-tailwindBlue px-6 py-3 font-bold text-white hover:bg-tailwindBlueSecondary">
+                className="rounded-full bg-tailwindBlue px-6 py-3 font-bold text-white hover:bg-tailwindBlueSecondary"
+              >
                 Get Started
               </button>
               <a
                 href="https://www.youtube.com/watch?v=4OQmtrYtkPg"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white hover:text-tailwindBlue">
+                className="text-white hover:text-tailwindBlue"
+              >
                 Watch Video
               </a>
             </div>
