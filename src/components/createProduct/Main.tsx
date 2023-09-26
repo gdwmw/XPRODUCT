@@ -1,6 +1,6 @@
 "use client";
 
-//VALUE
+// VALUE
 interface interfaceValue {
   id: number;
   productName: string;
@@ -21,10 +21,11 @@ interface interfaceWarning {
   w6: boolean;
 }
 
-//LIBRARY
-import { useState } from "react";
+// LIBRARY
+import { useState, useEffect } from "react";
+import Image from "next/image";
 
-//COMPONENTS
+// COMPONENTS
 import InputText from "./inputs/InputText";
 import Select from "./inputs/Select";
 import InputRadio from "./inputs/InputRadio";
@@ -33,8 +34,26 @@ import TextArea from "./inputs/TextArea";
 import InputNumber from "./inputs/InputNumber";
 import Warning from "./inputs/Warning";
 
+// UTILS
+import { getProductData } from "@/utils/getProductData";
+import { postProductData } from "@/utils/postProductData";
+import { deleteProductData } from "@/utils/deleteProductData";
+
 export default function Main() {
-  //VALUE
+  // RESPOND DATA
+  const [resData, setResData] = useState([]);
+
+  // GET DATA
+  const getData = async () => {
+    const res = await getProductData();
+    setResData(res);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  // VALUE
   const [value, setValue] = useState<interfaceValue>({
     id: 0,
     productName: "",
@@ -46,7 +65,7 @@ export default function Main() {
     searchProductName: "",
   });
 
-  //WARNING
+  // WARNING
   const [warning, setWarning] = useState<interfaceWarning>({
     w1: false,
     w2: false,
@@ -56,9 +75,53 @@ export default function Main() {
     w6: false,
   });
 
-  //HANDLE SUBMIT
-  const handleSubmit = () => {
-    setWarning({ ...warning, w1: true, w2: true, w3: true, w4: true, w5: true, w6: true });
+  // const handleImageOfProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = (e) => {
+  //       const result = e.target?.result as string;
+  //       setValue({ ...value, imageOfProduct: result });
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
+  // HANDLE SUBMIT
+  const handleSubmit = async () => {
+    if (
+      value.productName.length >= 6 &&
+      value.productName.length <= 25 &&
+      value.productCategory &&
+      value.productFreshness &&
+      value.imageOfProduct &&
+      value.additionalDescription &&
+      value.productPrice
+    ) {
+      await postProductData(value);
+      getData();
+      setValue({
+        ...value,
+        productName: "",
+        productCategory: "",
+        productFreshness: "",
+        imageOfProduct: "",
+        additionalDescription: "",
+        productPrice: 0,
+      });
+      setWarning({ ...warning, w1: false, w2: false, w3: false, w4: false, w5: false, w6: false });
+    } else {
+      setWarning({ ...warning, w1: true, w2: true, w3: true, w4: true, w5: true, w6: true });
+    }
+  };
+
+  // HANDLE DELETE
+  const handleDelete = async (id: number) => {
+    const deleteConfirm = window.confirm("Are you sure want to delete this data?");
+    if (deleteConfirm) {
+      await deleteProductData(id);
+      getData();
+    }
   };
   return (
     <main className="container mx-auto px-4 md:px-16 lg:px-32">
@@ -204,7 +267,27 @@ export default function Main() {
                 <th className="border-2 px-2">Action</th>
               </tr>
             </thead>
-            <tbody className="text-center">{/* Table rows will be generated dynamically */}</tbody>
+            <tbody className="text-center">
+              {resData.map((item: interfaceValue, index: number) => (
+                <tr key={index}>
+                  <td className="border-2 p-2">{item.id}</td>
+                  <td className="border-2 p-2">{item.productName}</td>
+                  <td className="border-2 p-2">{item.productCategory}</td>
+                  <td className="border-2 p-2">{item.productFreshness}</td>
+                  <td className="border-2 p-2">
+                    {item.imageOfProduct}
+                    {/* <Image src={item.imageOfProduct} alt="Image Of Product" width={100} height={0} /> */}
+                  </td>
+                  <td className="border-2 p-2">{item.additionalDescription}</td>
+                  <td className="border-2 p-2">{item.productPrice}</td>
+                  <td className="border-2 p-2">
+                    <button type="button" onClick={() => handleDelete(item.id)} className="rounded bg-red-400 px-4 py-2 text-white hover:bg-red-500">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </label>
       </section>

@@ -3,9 +3,10 @@ type postProductDataProps = {
   productName: string;
   productCategory: string;
   productFreshness: string;
-  productImage: string | null;
+  imageOfProduct: string;
   additionalDescription: string;
-  randomNumber: number;
+  productPrice: number;
+  searchProductName: string;
 };
 
 export async function postProductData(data: postProductDataProps) {

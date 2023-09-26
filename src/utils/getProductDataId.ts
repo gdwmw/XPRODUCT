@@ -1,4 +1,4 @@
-export async function fetchProductDataId(id: number) {
+export async function getProductDataId(id: number) {
   try {
     const res = await fetch(`https://650c816247af3fd22f67b58e.mockapi.io/ProductData/${id}`, { cache: "default" });
     return res.json();
