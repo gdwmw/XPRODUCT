@@ -1,7 +1,9 @@
 export async function fetchProductData() {
-  const res = await fetch("https://650c816247af3fd22f67b58e.mockapi.io/ProductData", { cache: "default" });
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
+  try {
+    const res = await fetch("https://650c816247af3fd22f67b58e.mockapi.io/ProductData", { cache: "default" });
+    return res.json();
+  } catch (error) {
+    console.error("An error occurred while retrieving data:", error);
+    throw error;
   }
-  return res.json();
 }
