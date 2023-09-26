@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Loading from "./loading";
 import Image from "next/image";
-import { fetchProductDataID } from "@/utils/fetchProductDataID";
+import { getProductDataId } from "@/utils/getProductDataId";
 
 interface ProductData {
   id: number;
@@ -15,7 +15,7 @@ interface ProductData {
 
 export default async function ProductDetail({ params }: { params: { id: string } }) {
   const id = parseInt(params.id);
-  const productData: ProductData = await fetchProductDataID(id);
+  const productData: ProductData = await getProductDataId(id);
 
   return (
     <Suspense fallback={<Loading />}>
