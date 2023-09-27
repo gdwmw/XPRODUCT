@@ -1,6 +1,49 @@
 export { locale };
 
 const locale = [
+  //Inggris
+  {
+    header: {
+      title: "Create Product",
+      desc: "Below is an example form built entirely with Tailwind&apos;s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.",
+    },
+    main: {
+      title: "Detail Product",
+      input: {
+        i1: "Product Name :",
+        i2: { label: "Product Category :", option: "Select" },
+        i3: {
+          label: "Product Freshness :",
+          option: ["Brand New", "Second Hand", "Refurbished"],
+        },
+        i4: "Image of Product :",
+        i5: "Additional Description :",
+        i6: "Product Price :",
+      },
+      warning: {
+        w1: "Minimum 6 characters!",
+        w2: "Maximum 25 characters!",
+        w3: "Please select one of the options!",
+        w4: "Can not be empty!",
+      },
+      button: { b1: "Generate Random Price", b2: ["Submit", "Edit"] },
+      confirm: "Please complete the ongoing data editing process!",
+      search: "Search by Product Name :",
+      table: {
+        label: "List of Products :",
+        header: ["Name", "Category", "Freshness", "Image", "Description", "Price", "Action"],
+        button: {
+          b1: "Edit",
+          b2: "Delete",
+        },
+        confirm: "Are you sure you want to delete this data?",
+      },
+    },
+    footer: {
+      copyright: "© 2023 Gede Dewo Wahyu M.W. All rights reserved.",
+    },
+  },
+
   // Indonesia
   {
     header: {
@@ -43,49 +86,6 @@ const locale = [
 
     footer: {
       copyright: "© 2023 Gede Dewo Wahyu M.W. Seluruh hak cipta dilindungi.",
-    },
-  },
-
-  //Inggris
-  {
-    header: {
-      title: "Create Product",
-      desc: "Below is an example form built entirely with Tailwind&apos;s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.",
-    },
-    main: {
-      title: "Detail Product",
-      input: {
-        i1: "Product Name :",
-        i2: { label: "Product Category :", option: "Select" },
-        i3: {
-          label: "Product Freshness :",
-          option: ["Brand New", "Second Hand", "Refurbished"],
-        },
-        i4: "Image of Product :",
-        i5: "Additional Description :",
-        i6: "Product Price :",
-      },
-      warning: {
-        w1: "Minimum 6 characters!",
-        w2: "Maximum 25 characters!",
-        w3: "Please select one of the options!",
-        w4: "Can not be empty!",
-      },
-      button: { b1: "Generate Random Price", b2: ["Submit", "Edit"] },
-      confirm: "Please complete the ongoing data editing process!",
-      search: "Search by Product Name :",
-      table: {
-        label: "List of Products :",
-        header: ["Name", "Category", "Freshness", "Image", "Description", "Price", "Action"],
-        button: {
-          b1: "Edit",
-          b2: "Delete",
-        },
-        confirm: "Are you sure you want to delete this data?",
-      },
-    },
-    footer: {
-      copyright: "© 2023 Gede Dewo Wahyu M.W. All rights reserved.",
     },
   },
 ];

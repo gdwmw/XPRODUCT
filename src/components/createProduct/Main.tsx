@@ -25,6 +25,7 @@ interface interfaceWarning {
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { locale } from "@/locales/createProduct/language";
+import { useSelector } from "react-redux";
 
 // COMPONENTS
 import InputText from "./inputs/InputText";
@@ -44,7 +45,7 @@ import { deleteProductData } from "@/utils/deleteProductData";
 export default function Main() {
   // LANGUAGE
   const lang = locale;
-  const code = 1;
+  const code: number = useSelector((state: any) => state.lang.code);
 
   // RESPOND DATA
   const [resData, setResData] = useState([]);
