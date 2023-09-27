@@ -2,13 +2,12 @@ type InputFile = {
   label: string;
   name: string;
   accept: string;
-  value: string;
   onClick: () => void;
   onChange: (e: any) => void;
   classBoolean: boolean;
 };
 
-export default function InputFile({ label, name, accept, value, onClick, onChange, classBoolean }: InputFile) {
+export default function InputFile({ label, name, accept, onClick, onChange, classBoolean }: InputFile) {
   return (
     <label htmlFor={name}>
       <span>{label}</span>
@@ -17,7 +16,6 @@ export default function InputFile({ label, name, accept, value, onClick, onChang
         name={name}
         id={name}
         accept={accept}
-        value={value}
         onClick={onClick}
         onChange={onChange}
         className={

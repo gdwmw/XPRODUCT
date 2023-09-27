@@ -75,17 +75,18 @@ export default function Main() {
     w6: false,
   });
 
-  // const handleImageOfProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onload = (e) => {
-  //       const result = e.target?.result as string;
-  //       setValue({ ...value, imageOfProduct: result });
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
+  // HANDLE IMAGE OF PRODUCT
+  const handleImageOfProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        setValue({ ...value, imageOfProduct: result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   // HANDLE SUBMIT
   const handleSubmit = async () => {
@@ -190,9 +191,8 @@ export default function Main() {
             label="Image of Product :"
             name="imageOfProduct"
             accept="image/*"
-            value={value.imageOfProduct}
             onClick={() => setWarning({ ...warning, w4: true })}
-            onChange={(e) => setValue({ ...value, imageOfProduct: e.target.value })}
+            onChange={handleImageOfProduct}
             classBoolean={warning.w4 ? (value.imageOfProduct ? false : true) : false}
           />
           <Warning label="Can not be empty!" displayBoolean={warning.w4 ? (value.imageOfProduct ? false : true) : false} />
@@ -275,11 +275,10 @@ export default function Main() {
                   <td className="border-2 p-2">{item.productCategory}</td>
                   <td className="border-2 p-2">{item.productFreshness}</td>
                   <td className="border-2 p-2">
-                    {item.imageOfProduct}
-                    {/* <Image src={item.imageOfProduct} alt="Image Of Product" width={100} height={0} /> */}
+                    <Image src={item.imageOfProduct} alt="Image Of Product" width={100} height={0} className="m-auto" />
                   </td>
                   <td className="border-2 p-2">{item.additionalDescription}</td>
-                  <td className="border-2 p-2">{item.productPrice}</td>
+                  <td className="border-2 p-2">{`$${item.productPrice}`}</td>
                   <td className="border-2 p-2">
                     <button type="button" onClick={() => handleDelete(item.id)} className="rounded bg-red-400 px-4 py-2 text-white hover:bg-red-500">
                       Delete
