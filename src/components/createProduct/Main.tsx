@@ -37,6 +37,7 @@ import Warning from "./inputs/Warning";
 // UTILS
 import { getProductData } from "@/utils/getProductData";
 import { postProductData } from "@/utils/postProductData";
+import { putProductData } from "@/utils/putProductData";
 import { deleteProductData } from "@/utils/deleteProductData";
 
 export default function Main() {
@@ -75,6 +76,9 @@ export default function Main() {
     w6: false,
   });
 
+  // EDIT MODE
+  const [editMode, setEditMode] = useState<boolean>(false);
+
   // HANDLE IMAGE OF PRODUCT
   const handleImageOfProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -90,7 +94,21 @@ export default function Main() {
 
   // HANDLE SUBMIT
   const handleSubmit = async () => {
-    if (
+    if (editMode) {
+      await putProductData(value);
+      getData();
+      setValue({
+        ...value,
+        productName: "",
+        productCategory: "",
+        productFreshness: "",
+        imageOfProduct: "",
+        additionalDescription: "",
+        productPrice: 0,
+      });
+      setWarning({ ...warning, w1: false, w2: false, w3: false, w4: false, w5: false, w6: false });
+      setEditMode(false);
+    } else if (
       value.productName.length >= 6 &&
       value.productName.length <= 25 &&
       value.productCategory &&
@@ -113,6 +131,16 @@ export default function Main() {
       setWarning({ ...warning, w1: false, w2: false, w3: false, w4: false, w5: false, w6: false });
     } else {
       setWarning({ ...warning, w1: true, w2: true, w3: true, w4: true, w5: true, w6: true });
+    }
+  };
+
+  // HANDLE EDIT
+  const handleEdit = (index: number) => {
+    if (!editMode) {
+      setValue(resData[index]);
+      setEditMode(true);
+    } else {
+      window.confirm("Please complete the ongoing data editing process!");
     }
   };
 
@@ -230,7 +258,7 @@ export default function Main() {
 
             {/* SUBMIT */}
             <button type="button" onClick={handleSubmit} className="rounded bg-tailwindBlue px-4 py-2 text-white hover:bg-tailwindBlueSecondary">
-              Submit
+              {editMode ? "Edit" : "Submit"}
             </button>
           </div>
         </form>
@@ -280,9 +308,26 @@ export default function Main() {
                   <td className="border-2 p-2">{item.additionalDescription}</td>
                   <td className="border-2 p-2">{`$${item.productPrice}`}</td>
                   <td className="border-2 p-2">
-                    <button type="button" onClick={() => handleDelete(item.id)} className="rounded bg-red-400 px-4 py-2 text-white hover:bg-red-500">
-                      Delete
-                    </button>
+                    {/* BUTTONS */}
+                    <div className="flex items-center justify-center gap-2">
+                      {/* EDIT */}
+                      <button
+                        type="button"
+                        onClick={() => handleEdit(index)}
+                        className="rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary"
+                      >
+                        Edit
+                      </button>
+
+                      {/* DELETE */}
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(item.id)}
+                        className="rounded bg-red-400 px-4 py-2 text-white hover:bg-red-500"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
