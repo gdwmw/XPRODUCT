@@ -1,9 +1,9 @@
+"use client";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import tailwindImages from "@/images/Tailwind.svg";
 
 export default function Main() {
-  const router = useRouter();
   return (
     <main>
       <section id="Home" className="bg-gradient-to-b from-tailwindGreen to-white pb-56 pt-40 md:pt-48 ">
@@ -14,15 +14,11 @@ export default function Main() {
               <p>We are a team of talented designers making websites with Tailwind</p>
             </div>
             <div className="space-x-10">
-              <button
-                type="button"
-                onClick={() => {
-                  router.push("/login");
-                }}
-                className="rounded-full bg-tailwindBlue px-6 py-3 font-bold text-white hover:bg-tailwindBlueSecondary"
-              >
-                Get Started
-              </button>
+              <Link href={"/createproduct"}>
+                <button type="button" className="rounded-full bg-tailwindBlue px-6 py-3 font-bold text-white hover:bg-tailwindBlueSecondary">
+                  Get Started
+                </button>
+              </Link>
               <a
                 href="https://www.youtube.com/watch?v=4OQmtrYtkPg"
                 target="_blank"

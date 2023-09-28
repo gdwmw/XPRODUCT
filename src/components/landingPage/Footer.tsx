@@ -1,3 +1,4 @@
+"use client";
 export default function Footer() {
   return (
     <footer id="Contact" className="bg-white px-10 pb-8 pt-5 sm:pb-8 sm:pt-8">

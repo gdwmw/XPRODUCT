@@ -21,7 +21,7 @@ interface interfaceWarning {
   w6: boolean;
 }
 
-// LIBRARY
+// LIBRARIES
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { locale } from "@/locales/createProduct/language";

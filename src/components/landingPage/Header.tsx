@@ -1,9 +1,9 @@
+"use client";
 import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { FiMenu } from "react-icons/fi";
 
 export default function Header() {
-  const router = useRouter();
   const [visibility, setVisibility] = useState<string>("hidden");
   const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -33,9 +33,11 @@ export default function Header() {
           <a href="#Contact" className="rounded-md px-3 py-2 hover:bg-white hover:text-tailwindGreen">
             Contact
           </a>
-          <button type="button" onClick={() => router.push("/login")} className="rounded-md bg-white px-3 py-2 text-tailwindGreen hover:bg-gray-100">
-            Login
-          </button>
+          <Link href={"/createproduct"}>
+            <button type="button" className="rounded-md bg-white px-3 py-2 text-tailwindGreen hover:bg-gray-100">
+              Login
+            </button>
+          </Link>
         </div>
         <div onClick={() => setVisibility("block")} className="block text-white hover:text-tailwindBlue sm:hidden">
           <FiMenu size={40} />
@@ -52,9 +54,11 @@ export default function Header() {
               <a href="#Contact" className="rounded-md px-3 py-2 focus:bg-white focus:text-tailwindBlue">
                 Contact
               </a>
-              <button type="button" onClick={() => router.push("/login")} className="rounded-md bg-white px-3 py-2 text-tailwindBlue">
-                Login
-              </button>
+              <Link href={"/createproduct"}>
+                <button type="button" className="rounded-md bg-white px-3 py-2 text-tailwindBlue">
+                  Login
+                </button>
+              </Link>
             </div>
           </div>
         </div>
