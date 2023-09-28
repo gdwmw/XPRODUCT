@@ -24,10 +24,10 @@ interface interfaceWarning {
 // IMPORT LIBRARIES
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { locale } from "@/locales/createProduct/language";
 import { useSelector } from "react-redux";
 
 // IMPORT COMPONENTS
+import { locale } from "@/locales/createProduct/language";
 import InputText from "./inputs/InputText";
 import Select from "./inputs/Select";
 import InputRadio from "./inputs/InputRadio";
