@@ -5,6 +5,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 // IMPORT COMPONENTS
 import { locale } from "@/locales/login/language";
@@ -14,6 +15,9 @@ import Warning from "@/components/login/inputs/Warning";
 import tailwindImage from "@/images/Tailwind.svg";
 
 export default function Login() {
+  // USE ROUTER
+  const router = useRouter();
+
   // USERNAME & PASSWORD STATE
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -26,13 +30,24 @@ export default function Login() {
   const code: number = useSelector((state: any) => state.lang.code);
 
   // HANDLE SUBMIT
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    signIn(`credentials`, {
-      username,
-      password,
-      callbackUrl: "/createproduct",
-    });
+    try {
+      const res: any = await signIn(`credentials`, {
+        username,
+        password,
+        redirect: false,
+      });
+
+      if (res.error) {
+        setWarning(true);
+        return;
+      }
+
+      router.push("/createproduct");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -67,7 +82,9 @@ export default function Login() {
               />
 
               {/* WARNING */}
-              <Warning label={lang[code].main.warning} displayBoolean={warning} />
+              <div className="text-center">
+                <Warning label={lang[code].main.warning} displayBoolean={warning} />
+              </div>
 
               {/* LOGIN BUTTON */}
               <button
