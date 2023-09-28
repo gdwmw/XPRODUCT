@@ -1,6 +1,6 @@
 "use client";
 
-// VALUE
+// VALUE INTERFACE
 interface interfaceValue {
   id: number;
   productName: string;
@@ -11,7 +11,7 @@ interface interfaceValue {
   productPrice: number;
   searchProductName: string;
 }
-// WARNING
+// WARNING INTERFACE
 interface interfaceWarning {
   w1: boolean;
   w2: boolean;
@@ -21,13 +21,13 @@ interface interfaceWarning {
   w6: boolean;
 }
 
-// LIBRARIES
+// IMPORT LIBRARIES
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { locale } from "@/locales/createProduct/language";
 import { useSelector } from "react-redux";
 
-// COMPONENTS
+// IMPORT COMPONENTS
 import InputText from "./inputs/InputText";
 import Select from "./inputs/Select";
 import InputRadio from "./inputs/InputRadio";
@@ -36,31 +36,30 @@ import TextArea from "./inputs/TextArea";
 import InputNumber from "./inputs/InputNumber";
 import Warning from "./inputs/Warning";
 
-// UTILS
+// IMPORT UTILS
 import { getProductData } from "@/utils/getProductData";
 import { postProductData } from "@/utils/postProductData";
 import { putProductData } from "@/utils/putProductData";
 import { deleteProductData } from "@/utils/deleteProductData";
 
 export default function Main() {
-  // LANGUAGE
+  // REDUX LANGUAGE
   const lang = locale;
   const code: number = useSelector((state: any) => state.lang.code);
 
-  // RESPOND DATA
+  // API RESPOND DATA STATE
   const [resData, setResData] = useState([]);
 
-  // GET DATA
+  // API GET DATA
   const getData = async () => {
     const res = await getProductData();
     setResData(res);
   };
-
   useEffect(() => {
     getData();
   }, []);
 
-  // VALUE
+  // VALUE STATE
   const [value, setValue] = useState<interfaceValue>({
     id: 0,
     productName: "",
@@ -72,7 +71,7 @@ export default function Main() {
     searchProductName: "",
   });
 
-  // WARNING
+  // WARNING STATE
   const [warning, setWarning] = useState<interfaceWarning>({
     w1: false,
     w2: false,
@@ -82,7 +81,7 @@ export default function Main() {
     w6: false,
   });
 
-  // EDIT MODE
+  // EDIT MODE STATE
   const [editMode, setEditMode] = useState<boolean>(false);
 
   // HANDLE IMAGE OF PRODUCT
