@@ -1,1 +1,1 @@
-Email : admin@gmail.com <br/> Password : admin
+Email : admin <br/> Password : admin <br/> https://create-product-zeta.vercel.app/
