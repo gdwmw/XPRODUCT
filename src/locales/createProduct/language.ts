@@ -5,7 +5,7 @@ const locale = [
   {
     header: {
       title: "Create Product",
-      desc: "Below is an example form built entirely with Tailwind&apos;s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.",
+      desc: "Below is an example form built entirely with Tailwind form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.",
     },
     main: {
       title: "Detail Product",
