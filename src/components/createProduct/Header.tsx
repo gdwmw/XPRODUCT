@@ -3,6 +3,8 @@
 // IMPORT LIBRARIES
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
+import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 // IMPORT COMPONENTS
 import { locale } from "@/locales/createProduct/language";
@@ -14,6 +16,9 @@ export default function Header() {
   const lang = locale;
   const code: number = useSelector((state: any) => state.lang.code);
   const dispatch: any = useDispatch();
+
+  // LOGOUT
+  const logout = () => signOut();
   return (
     <header className="container mx-auto px-5 py-6 text-center">
       {/* LOGO */}
@@ -26,16 +31,34 @@ export default function Header() {
       <p>{lang[code].header.desc}</p>
 
       {/* BUTTONS */}
-      <div className="mt-5 flex items-center justify-center text-xs">
-        {/* ENGLISH */}
-        <button type="button" onClick={() => dispatch(setLangCode(0))} className={code === 0 ? "text-tailwindBlue" : "text-black"}>
-          EN
-        </button>
-        <p>/</p>
-        {/* INDONESIA */}
-        <button type="button" onClick={() => dispatch(setLangCode(1))} className={code === 1 ? "text-tailwindBlue" : "text-black"}>
-          ID
-        </button>
+      <div className="mt-5 flex items-center justify-between gap-5 px-[45px] text-xs">
+        <div className="flex items-center justify-center gap-2">
+          {/* DASHBOARD */}
+          <Link href={"/"}>
+            <button type="button" className="hover:text-tailwindBlue">
+              DASHBOARD
+            </button>
+          </Link>
+          <p>-</p>
+          {/* LOGOUT */}
+          <button type="button" onClick={() => logout()} className="hover:text-tailwindBlue">
+            LOGOUT
+          </button>
+        </div>
+        {/* CHANGE LANGUAGE */}
+        <div className="flex items-center justify-center">
+          <p>{`- [`}</p>
+          {/* ENGLISH */}
+          <button type="button" onClick={() => dispatch(setLangCode(0))} className={code === 0 ? "text-tailwindBlue" : "text-black"}>
+            EN
+          </button>
+          <p>/</p>
+          {/* INDONESIA */}
+          <button type="button" onClick={() => dispatch(setLangCode(1))} className={code === 1 ? "text-tailwindBlue" : "text-black"}>
+            ID
+          </button>
+          <p>{`] -`}</p>
+        </div>
       </div>
     </header>
   );
