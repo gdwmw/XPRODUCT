@@ -52,12 +52,6 @@ export default function Login() {
         setLoading(false);
         return;
       }
-
-      if (session.data?.user.role === "admin") {
-        router.push("/admin/createproduct");
-      } else {
-        router.push("/createproduct");
-      }
     } catch (error) {
       console.log(error);
     }
@@ -75,10 +69,8 @@ export default function Login() {
         } else {
           router.push("/createproduct");
         }
-      }, 3000);
+      }, 1000);
     }
-
-    return () => {};
   }, [session, router]);
 
   return (
