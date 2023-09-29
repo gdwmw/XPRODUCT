@@ -13,6 +13,7 @@ import InputText from "@/components/login/inputs/InputText";
 import InputPassword from "@/components/login/inputs/InputPassword";
 import Warning from "@/components/login/inputs/Warning";
 import tailwindImage from "@/images/Tailwind.svg";
+import loadingAnimation from "@/images/Loading.svg";
 
 export default function Login() {
   // USE ROUTER
@@ -25,6 +26,9 @@ export default function Login() {
   // WARNING STATE
   const [warning, setWarning] = useState<boolean>(false);
 
+  // LOADING STATE
+  const [loading, setLoading] = useState<boolean>(false);
+
   // REDUX LANGUAGE
   const lang = locale;
   const code: number = useSelector((state: any) => state.lang.code);
@@ -32,6 +36,7 @@ export default function Login() {
   // HANDLE SUBMIT
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res: any = await signIn(`credentials`, {
         username,
@@ -41,6 +46,7 @@ export default function Login() {
 
       if (res.error) {
         setWarning(true);
+        setLoading(false);
         return;
       }
 
@@ -89,9 +95,14 @@ export default function Login() {
               {/* LOGIN BUTTON */}
               <button
                 type="submit"
-                className="w-full rounded-md bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary focus:outline-none"
+                className={`w-full rounded-md ${loading ? "bg-tailwindGreenSecondary/50" : "bg-tailwindGreen"} px-4 py-2 text-white ${
+                  loading ? "" : "hover:bg-tailwindGreenSecondary"
+                } focus:outline-none`}
               >
-                Login
+                <div className="flex items-center justify-center gap-1">
+                  Login
+                  {loading && <Image src={loadingAnimation} alt="Loading" width={20} height={0} />}
+                </div>
               </button>
             </form>
           </main>
