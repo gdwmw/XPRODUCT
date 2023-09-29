@@ -1,9 +1,9 @@
 "use client";
 
 // IMPORT LIBRARIES
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
@@ -16,6 +16,9 @@ import tailwindImage from "@/images/Tailwind.svg";
 import loadingAnimation from "@/images/Loading.svg";
 
 export default function Login() {
+  // USE SESSION
+  const session = useSession();
+
   // USE ROUTER
   const router = useRouter();
 
@@ -50,11 +53,33 @@ export default function Login() {
         return;
       }
 
-      router.push("/createproduct");
+      if (session.data?.user.role === "admin") {
+        router.push("/admin/createproduct");
+      } else {
+        router.push("/createproduct");
+      }
     } catch (error) {
       console.log(error);
     }
   };
+
+  // CHECK AUTHENTICATION & REDIRECT
+  useEffect(() => {
+    if (session.status === "authenticated") {
+      setLoading(true);
+      setUsername("**********");
+      setPassword("**********");
+      setTimeout(() => {
+        if (session.data?.user.role === "admin") {
+          router.push("/admin/createproduct");
+        } else {
+          router.push("/createproduct");
+        }
+      }, 3000);
+    }
+
+    return () => {};
+  }, [session, router]);
 
   return (
     <div className="bg-white sm:bg-gray-100">
@@ -98,6 +123,7 @@ export default function Login() {
                 className={`w-full rounded-md ${loading ? "bg-tailwindGreenSecondary/50" : "bg-tailwindGreen"} px-4 py-2 text-white ${
                   loading ? "" : "hover:bg-tailwindGreenSecondary"
                 } focus:outline-none`}
+                disabled={loading && true}
               >
                 <div className="flex items-center justify-center gap-1">
                   Login

@@ -1,21 +1,21 @@
-type Select = {
+type InputFile = {
   label: string;
   name: string;
-  value: string;
+  accept: string;
   onClick: () => void;
   onChange: (e: any) => void;
   classBoolean: boolean;
-  children: React.ReactNode;
 };
 
-export default function Select({ label, name, value, onClick, onChange, classBoolean, children }: Select) {
+export default function InputFile({ label, name, accept, onClick, onChange, classBoolean }: InputFile) {
   return (
     <label htmlFor={name}>
       <span>{label}</span>
-      <select
+      <input
+        type="file"
         name={name}
         id={name}
-        value={value}
+        accept={accept}
         onClick={onClick}
         onChange={onChange}
         className={
@@ -23,10 +23,7 @@ export default function Select({ label, name, value, onClick, onChange, classBoo
             ? "w-full rounded border-2 border-red-300 px-4 py-2 outline-none focus:border-tailwindBlue"
             : "w-full rounded border-2 border-gray-200 px-4 py-2 outline-none focus:border-tailwindBlue"
         }
-        disabled
-      >
-        {children}
-      </select>
+      />
     </label>
   );
 }

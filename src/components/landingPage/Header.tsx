@@ -2,8 +2,11 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { FiMenu } from "react-icons/fi";
+import { useSession } from "next-auth/react";
 
 export default function Header() {
+  const session = useSession();
+
   const [visibility, setVisibility] = useState<string>("hidden");
   const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -33,11 +36,13 @@ export default function Header() {
           <a href="#Contact" className="rounded-md px-3 py-2 hover:bg-white hover:text-tailwindGreen">
             Contact
           </a>
-          <Link href={"/createproduct"}>
-            <button type="button" className="rounded-md bg-white px-3 py-2 text-tailwindGreen hover:bg-gray-100">
-              Login
-            </button>
-          </Link>
+          {session.status === "unauthenticated" && (
+            <Link href={"/login"}>
+              <button type="button" className="rounded-md bg-white px-3 py-2 text-tailwindGreen hover:bg-gray-100">
+                Login
+              </button>
+            </Link>
+          )}
         </div>
         <div onClick={() => setVisibility("block")} className="block text-white hover:text-tailwindBlue sm:hidden">
           <FiMenu size={40} />
@@ -54,11 +59,13 @@ export default function Header() {
               <a href="#Contact" className="rounded-md px-3 py-2 focus:bg-white focus:text-tailwindBlue">
                 Contact
               </a>
-              <Link href={"/createproduct"}>
-                <button type="button" className="rounded-md bg-white px-3 py-2 text-tailwindBlue">
-                  Login
-                </button>
-              </Link>
+              {session.status === "unauthenticated" && (
+                <Link href={"/login"}>
+                  <button type="button" className="rounded-md bg-white px-3 py-2 text-tailwindBlue hover:bg-gray-100">
+                    Login
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
         </div>

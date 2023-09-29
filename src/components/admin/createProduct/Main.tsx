@@ -272,18 +272,12 @@ export default function Main() {
               type="button"
               onClick={generateRandomPrice}
               className="rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary"
-              disabled
             >
               {lang[code].main.button.b1}
             </button>
 
             {/* SUBMIT */}
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className="rounded bg-tailwindBlue px-4 py-2 text-white hover:bg-tailwindBlueSecondary"
-              disabled
-            >
+            <button type="button" onClick={handleSubmit} className="rounded bg-tailwindBlue px-4 py-2 text-white hover:bg-tailwindBlueSecondary">
               {editMode ? lang[code].main.button.b2[1] : lang[code].main.button.b2[0]}
             </button>
           </div>
@@ -341,7 +335,6 @@ export default function Main() {
                         type="button"
                         onClick={() => handleEdit(index)}
                         className="rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary"
-                        disabled
                       >
                         {lang[code].main.table.button.b1}
                       </button>
@@ -351,7 +344,6 @@ export default function Main() {
                         type="button"
                         onClick={() => handleDelete(item.id)}
                         className="rounded bg-red-400 px-4 py-2 text-white hover:bg-red-500"
-                        disabled
                       >
                         {lang[code].main.table.button.b2}
                       </button>

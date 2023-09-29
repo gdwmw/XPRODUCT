@@ -29,6 +29,16 @@ export const options: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }: any) {
+      if (user) token.role = user.role;
+      return token;
+    },
+    async session({ session, token }: any) {
+      if (session?.user) session.user.role = token.role;
+      return session;
+    },
+  },
   secret: process.env.NEXTAUTH_SECRET,
   session: { strategy: "jwt" },
   pages: {
