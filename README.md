@@ -1,1 +1,1 @@
-Email : admin <br/> Password : admin <br/> https://create-product-zeta.vercel.app/
+Email : admin <br/> Password : admin <br/> https://create-product-gdwmw.vercel.app/
