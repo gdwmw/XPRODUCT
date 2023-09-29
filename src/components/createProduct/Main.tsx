@@ -97,6 +97,14 @@ export default function Main() {
     }
   };
 
+  // GENERATE RANDOM PRICE
+  const generateRandomPrice = () => {
+    const minPrice = 1;
+    const maxPrice = 1000;
+    const randomPrice = Math.floor(Math.random() * (maxPrice - minPrice + 1)) + minPrice;
+    setValue({ ...value, productPrice: randomPrice });
+  };
+
   // HANDLE SUBMIT
   const handleSubmit = async () => {
     if (editMode) {
@@ -138,6 +146,9 @@ export default function Main() {
       setWarning({ ...warning, w1: true, w2: true, w3: true, w4: true, w5: true, w6: true });
     }
   };
+
+  // SEARCH
+  const filteredData = resData.filter((item: interfaceValue) => item.productName.toLowerCase().includes(value.searchProductName.toLowerCase()));
 
   // HANDLE EDIT
   const handleEdit = (index: number) => {
@@ -257,7 +268,11 @@ export default function Main() {
           {/* BUTTONS */}
           <div className="flex items-center gap-5">
             {/* GENERATE RANDOM PRICE */}
-            <button type="button" className="rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary">
+            <button
+              type="button"
+              onClick={generateRandomPrice}
+              className="rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary"
+            >
               {lang[code].main.button.b1}
             </button>
 
@@ -301,7 +316,7 @@ export default function Main() {
               </tr>
             </thead>
             <tbody className="text-center">
-              {resData.map((item: interfaceValue, index: number) => (
+              {filteredData.map((item: interfaceValue, index: number) => (
                 <tr key={index}>
                   <td className="border-2 p-2">{item.id}</td>
                   <td className="border-2 p-2">{item.productName}</td>
