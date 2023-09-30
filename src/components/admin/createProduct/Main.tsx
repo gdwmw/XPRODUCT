@@ -37,10 +37,7 @@ import InputNumber from "./inputs/InputNumber";
 import Warning from "./inputs/Warning";
 
 // IMPORT UTILS
-import { getProductData } from "@/utils/getProductData";
-import { postProductData } from "@/utils/postProductData";
-import { putProductData } from "@/utils/putProductData";
-import { deleteProductData } from "@/utils/deleteProductData";
+import { getProductData, getProductDataId, postProductData, putProductData, deleteProductData } from "@/utils/fetchProductData";
 
 export default function Main() {
   // REDUX LANGUAGE

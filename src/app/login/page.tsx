@@ -57,7 +57,7 @@ export default function Login() {
     }
   };
 
-  // CHECK AUTHENTICATION & REDIRECT
+  // CHECK STATUS & REDIRECT
   useEffect(() => {
     if (session.status === "authenticated") {
       setLoading(true);
