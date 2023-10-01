@@ -44,7 +44,7 @@ export default function Header() {
               </button>
             </Link>
           ) : (
-            session.data?.user?.image && <Image src={session.data?.user?.image} alt="Profile" width={40} height={40} />
+            session.data?.user?.image && <Image src={session.data?.user?.image} alt="Profile" width={40} height={40} loading="eager" />
           )}
         </div>
         <div onClick={() => setVisibility("block")} className="block text-white hover:text-tailwindBlue sm:hidden">
@@ -69,7 +69,9 @@ export default function Header() {
                   </button>
                 </Link>
               ) : (
-                session.data?.user?.image && <Image src={session.data?.user?.image} alt="Profile" width={40} height={40} className="ml-1.5" />
+                session.data?.user?.image && (
+                  <Image src={session.data?.user?.image} alt="Profile" width={40} height={40} loading="eager" className="ml-1.5" />
+                )
               )}
             </div>
           </div>

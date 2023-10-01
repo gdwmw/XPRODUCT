@@ -115,7 +115,7 @@ export default function Login() {
               >
                 <div className="flex items-center justify-center gap-1">
                   Login
-                  {loading && <Image src={loadingAnimation} alt="Loading" width={20} height={0} priority />}
+                  {loading && <Image src={loadingAnimation} alt="Loading" width={20} height={0} loading="eager" />}
                 </div>
               </button>
             </form>
