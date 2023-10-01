@@ -52,7 +52,7 @@ export default function Header() {
         </div>
         <div className={`${visibility} fixed left-0 top-0 h-96 w-full bg-tailwindBlue/80 sm:hidden`}>
           <div className="flex h-full w-full items-center justify-center">
-            <div ref={menuRef} className="space-x-1">
+            <div ref={menuRef} className="flex items-center justify-center gap-1">
               <a href="#Home" className="rounded-md px-3 py-2 focus:bg-white focus:text-tailwindBlue">
                 Home
               </a>
@@ -69,7 +69,7 @@ export default function Header() {
                   </button>
                 </Link>
               ) : (
-                session.data?.user?.image && <Image src={session.data?.user?.image} alt="Profile" width={40} height={40} />
+                session.data?.user?.image && <Image src={session.data?.user?.image} alt="Profile" width={40} height={40} className="ml-1.5" />
               )}
             </div>
           </div>
