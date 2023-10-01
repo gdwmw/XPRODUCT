@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { FiMenu } from "react-icons/fi";
 import { useSession } from "next-auth/react";
 
@@ -26,7 +27,7 @@ export default function Header() {
     <header className="flex items-center justify-between bg-tailwindGreen px-10 py-4 text-white">
       <h1 className="text-3xl font-semibold">Simple Header</h1>
       <nav className="font-bold text-white">
-        <div className="hidden sm:block sm:space-x-1">
+        <div className="hidden sm:flex sm:items-center sm:justify-center sm:space-x-1">
           <a href="#Home" className="rounded-md px-3 py-2 hover:bg-white hover:text-tailwindGreen">
             Home
           </a>
@@ -36,12 +37,14 @@ export default function Header() {
           <a href="#Contact" className="rounded-md px-3 py-2 hover:bg-white hover:text-tailwindGreen">
             Contact
           </a>
-          {session.status === "unauthenticated" && (
+          {session.status === "unauthenticated" ? (
             <Link href={"/login"}>
               <button type="button" className="rounded-md bg-white px-3 py-2 text-tailwindGreen hover:bg-gray-100">
                 Login
               </button>
             </Link>
+          ) : (
+            session.data?.user?.image && <Image src={session.data?.user?.image} alt="Profile" width={40} height={0} />
           )}
         </div>
         <div onClick={() => setVisibility("block")} className="block text-white hover:text-tailwindBlue sm:hidden">

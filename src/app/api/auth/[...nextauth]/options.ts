@@ -2,6 +2,14 @@ import type { NextAuthOptions } from "next-auth";
 // import GitHubProvider from "next-auth/providers/github";
 import CredentialProvider from "next-auth/providers/credentials";
 
+interface interfaceData {
+  id: string;
+  username: string;
+  password: string;
+  image: string;
+  role: string;
+}
+
 export const options: NextAuthOptions = {
   providers: [
     // GitHubProvider({
@@ -11,12 +19,12 @@ export const options: NextAuthOptions = {
     CredentialProvider({
       name: "Credentials",
       credentials: {},
-      async authorize(credentials) {
-        const { username, password }: any = credentials;
+      async authorize(credentials: any) {
+        const { username, password } = credentials;
         try {
           const res = await fetch("https://650c816247af3fd22f67b58e.mockapi.io/Account");
-          const data = await res.json();
-          const user = data.find((item: any) => item.username === username && item.password === password);
+          const data: interfaceData[] = await res.json();
+          const user = data.find((item) => item.username === username && item.password === password);
           if (user) {
             return user;
           } else {
@@ -30,11 +38,11 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }: any) {
+    async jwt({ token, user }) {
       if (user) token.role = user.role;
       return token;
     },
-    async session({ session, token }: any) {
+    async session({ session, token }) {
       if (session?.user) session.user.role = token.role;
       return session;
     },
