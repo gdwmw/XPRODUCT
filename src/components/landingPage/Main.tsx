@@ -35,7 +35,7 @@ export default function Main() {
                 href="https://www.youtube.com/watch?v=4OQmtrYtkPg"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white hover:text-tailwindBlue"
+                className="rounded-full px-6 py-3 font-bold text-white hover:bg-tailwindBlue/20 hover:text-tailwindBlue"
               >
                 Watch Video
               </a>
