@@ -62,12 +62,14 @@ export default function Header() {
               <a href="#Contact" className="rounded-md px-3 py-2 focus:bg-white focus:text-tailwindBlue">
                 Contact
               </a>
-              {session.status === "unauthenticated" && (
+              {session.status === "unauthenticated" ? (
                 <Link href={"/login"}>
-                  <button type="button" className="rounded-md bg-white px-3 py-2 text-tailwindBlue hover:bg-gray-100">
+                  <button type="button" className="rounded-md bg-white px-3 py-2 text-tailwindGreen hover:bg-gray-100">
                     Login
                   </button>
                 </Link>
+              ) : (
+                session.data?.user?.image && <Image src={session.data?.user?.image} alt="Profile" width={40} height={40} />
               )}
             </div>
           </div>
