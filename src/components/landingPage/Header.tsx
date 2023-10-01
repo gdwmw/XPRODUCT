@@ -44,7 +44,7 @@ export default function Header() {
               </button>
             </Link>
           ) : (
-            session.data?.user?.image && <Image src={session.data?.user?.image} alt="Profile" width={40} height={0} />
+            session.data?.user?.image && <Image src={session.data?.user?.image} alt="Profile" width={40} height={40} />
           )}
         </div>
         <div onClick={() => setVisibility("block")} className="block text-white hover:text-tailwindBlue sm:hidden">
