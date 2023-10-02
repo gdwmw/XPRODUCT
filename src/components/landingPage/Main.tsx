@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import tailwindImages from "@/images/Tailwind.svg";
+import imgXPRODUCT from "@/images/XPRODUCT.png";
 import { useSession } from "next-auth/react";
 
 export default function Main() {
@@ -42,7 +42,7 @@ export default function Main() {
             </div>
           </div>
           <Image
-            src={tailwindImages}
+            src={imgXPRODUCT}
             alt="image"
             className="my-auto ml-auto hidden h-auto drop-shadow-xl md:block md:w-[300px] lg:w-[350px] xl:w-[450px]"
           />

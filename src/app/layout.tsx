@@ -8,7 +8,7 @@ import ReduxProvider from "@/redux/provider";
 const outfit = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Landing Page",
+  title: "XProduct | Landing Page",
   description: "© 2023 Gede Dewo Wahyu M.W. All rights reserved.",
 };
 

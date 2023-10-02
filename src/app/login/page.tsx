@@ -12,7 +12,7 @@ import { locale } from "@/locales/login/language";
 import InputText from "@/components/login/inputs/InputText";
 import InputPassword from "@/components/login/inputs/InputPassword";
 import Warning from "@/components/login/inputs/Warning";
-import tailwindImage from "@/images/Tailwind.svg";
+import imgXPRODUCT from "@/images/XPRODUCT.png";
 import loadingAnimation from "@/images/Loading.svg";
 
 export default function Login() {
@@ -74,7 +74,7 @@ export default function Login() {
       <div className="container mx-auto flex h-screen w-screen items-center justify-center">
         <div className="w-[450px] rounded-xl bg-white p-4 sm:shadow-md">
           <header className="flex flex-col items-center justify-center gap-5 pb-5 sm:pt-4">
-            <Image src={tailwindImage} width={150} height={0} alt="Tailwind" />
+            <Image src={imgXPRODUCT} width={150} height={0} alt="Tailwind" />
             <h2 className="text-center text-2xl font-bold text-tailwindBlue">{lang[code].header.title}</h2>
           </header>
 

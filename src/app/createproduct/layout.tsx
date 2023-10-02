@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "User - Create Product",
+  title: "XProduct | User",
   description: "© 2023 Gede Dewo Wahyu M.W. All rights reserved.",
 };
 

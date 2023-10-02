@@ -8,7 +8,7 @@ import { signOut } from "next-auth/react";
 
 // IMPORT COMPONENTS
 import { locale } from "@/locales/createProduct/language";
-import tailwindImage from "@/images/Tailwind.svg";
+import imgXPRODUCT from "@/images/XPRODUCT.png";
 import { setLangCode } from "@/redux/features/langCodeSlice";
 
 export default function Header() {
@@ -22,7 +22,7 @@ export default function Header() {
   return (
     <header className="container mx-auto px-5 py-6 text-center">
       {/* LOGO */}
-      <Image src={tailwindImage} width={150} height={0} alt="Tailwind" className="mx-auto mb-5 mt-1 h-auto" />
+      <Image src={imgXPRODUCT} width={150} height={0} alt="Tailwind" className="mx-auto mb-5 mt-1 h-auto" />
 
       {/* TITLE */}
       <h1 className="text-3xl font-bold text-tailwindBlue">{lang[code].header.title}</h1>
