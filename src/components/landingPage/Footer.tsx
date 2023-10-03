@@ -32,19 +32,29 @@ export default function Footer() {
           <h4 className="text-xl font-bold text-tailwindGreen">Useful Links</h4>
           <ul className="text-gray-600">
             <li>
-              <p>Home</p>
+              <a href="#" className="hover:text-tailwindBlue">
+                Home
+              </a>
             </li>
             <li>
-              <p>About Us</p>
+              <a href="#" className="hover:text-tailwindBlue">
+                About Us
+              </a>
             </li>
             <li>
-              <p>Service</p>
+              <a href="#" className="hover:text-tailwindBlue">
+                Service
+              </a>
             </li>
             <li>
-              <p>Terms of Service</p>
+              <a href="#" className="hover:text-tailwindBlue">
+                Terms of Service
+              </a>
             </li>
             <li>
-              <p>Privacy Policy</p>
+              <a href="#" className="hover:text-tailwindBlue">
+                Privacy Policy
+              </a>
             </li>
           </ul>
         </div>
@@ -53,19 +63,29 @@ export default function Footer() {
           <h4 className="text-xl font-bold text-tailwindGreen">Our Service</h4>
           <ul className="text-gray-600">
             <li>
-              <p>Web Design</p>
+              <a href="#" className="hover:text-tailwindBlue">
+                Web Design
+              </a>
             </li>
             <li>
-              <p>Web Development</p>
+              <a href="#" className="hover:text-tailwindBlue">
+                Web Development
+              </a>
             </li>
             <li>
-              <p>Product Management</p>
+              <a href="#" className="hover:text-tailwindBlue">
+                Product Management
+              </a>
             </li>
             <li>
-              <p>Marketing</p>
+              <a href="#" className="hover:text-tailwindBlue">
+                Marketing
+              </a>
             </li>
             <li>
-              <p>Graphic Design</p>
+              <a href="#" className="hover:text-tailwindBlue">
+                Graphic Design
+              </a>
             </li>
           </ul>
         </div>
