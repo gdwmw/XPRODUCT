@@ -51,7 +51,7 @@ export default function Header() {
               </button>
             </Link>
           ) : (
-            session.data?.user?.image && <Image src={session.data?.user?.image} alt="Profile" width={38} height={0} loading="eager" />
+            session.data?.user?.image && <Image src={session.data?.user?.image} alt="Profile" width={38} height={38} loading="eager" />
           )}
         </div>
 
