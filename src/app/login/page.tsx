@@ -61,11 +61,13 @@ export default function Login() {
   useEffect(() => {
     if (session.status === "authenticated") {
       setLoading(true);
-      if (session.data?.user.role === "admin") {
-        router.push("/admin/createproduct");
-      } else {
-        router.push("/createproduct");
-      }
+      setTimeout(() => {
+        if (session.data?.user.role === "admin") {
+          router.push("/admin/createproduct");
+        } else {
+          router.push("/createproduct");
+        }
+      }, 1000);
     }
   }, [session, router]);
 
