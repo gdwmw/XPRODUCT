@@ -11,6 +11,7 @@ export default function Welcome() {
     </section>,
   );
 
+  // WELCOME TRANSITION
   useEffect(() => {
     setTimeout(() => {
       setWelcome(
