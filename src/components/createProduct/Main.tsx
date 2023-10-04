@@ -23,8 +23,9 @@ interface interfaceWarning {
 
 // IMPORT LIBRARIES
 import { useState, useEffect } from "react";
-import Image from "next/image";
+import { useSession } from "next-auth/react";
 import { useSelector } from "react-redux";
+import Image from "next/image";
 
 // IMPORT COMPONENTS
 import { locale } from "@/locales/createProduct/language";
@@ -35,11 +36,18 @@ import InputFile from "./inputs/InputFile";
 import TextArea from "./inputs/TextArea";
 import InputNumber from "./inputs/InputNumber";
 import Warning from "./inputs/Warning";
+import loadingAnimation from "@/images/Loading.svg";
 
 // IMPORT UTILS
 import { fetchProductData, fetchProductDataById, createProductData, updateProductData, deleteProductDataById } from "@/utils/fetchProductData";
 
 export default function Main() {
+  // USE SESSION
+  const session = useSession();
+
+  // DISABLED INPUTS
+  const disabled = session.data?.user.role === "user" ? true : false;
+
   // REDUX LANGUAGE
   const lang = locale;
   const code: number = useSelector((state: any) => state.lang.code);
@@ -78,6 +86,9 @@ export default function Main() {
     w6: false,
   });
 
+  // LOADING STATE
+  const [loading, setLoading] = useState<boolean>(false);
+
   // EDIT MODE STATE
   const [editMode, setEditMode] = useState<boolean>(false);
 
@@ -104,9 +115,11 @@ export default function Main() {
 
   // HANDLE SUBMIT
   const handleSubmit = async () => {
+    setLoading(true);
     if (editMode) {
       await updateProductData(value);
       getData();
+      setLoading(false);
       setValue({
         ...value,
         productName: "",
@@ -129,6 +142,7 @@ export default function Main() {
     ) {
       await createProductData(value);
       getData();
+      setLoading(false);
       setValue({
         ...value,
         productName: "",
@@ -178,6 +192,7 @@ export default function Main() {
             onClick={() => setWarning({ ...warning, w1: true })}
             onChange={(e) => setValue({ ...value, productName: e.target.value })}
             classBoolean={warning.w1 ? (value.productName.length >= 6 && value.productName.length <= 25 ? false : true) : false}
+            disabled={loading || disabled ? true : false}
           />
           <Warning label={lang[code].main.warning.w1} displayBoolean={warning.w1 ? (value.productName.length >= 6 ? false : true) : false} />
           <Warning label={lang[code].main.warning.w2} displayBoolean={warning.w1 ? (value.productName.length <= 25 ? false : true) : false} />
@@ -190,6 +205,7 @@ export default function Main() {
             onClick={() => setWarning({ ...warning, w2: true })}
             onChange={(e) => setValue({ ...value, productCategory: e.target.value })}
             classBoolean={warning.w2 ? (value.productCategory ? false : true) : false}
+            disabled={loading || disabled ? true : false}
           >
             <option value="">{lang[code].main.input.i2.option}</option>
             <option value="A">A</option>
@@ -211,18 +227,21 @@ export default function Main() {
               name="productFreshness"
               id="option1"
               onClick={() => setValue({ ...value, productFreshness: "Brand New" })}
+              disabled={loading || disabled ? true : false}
             />
             <InputRadio
               label={lang[code].main.input.i3.option[1]}
               name="productFreshness"
               id="option2"
               onClick={() => setValue({ ...value, productFreshness: "Second Hand" })}
+              disabled={loading || disabled ? true : false}
             />
             <InputRadio
               label={lang[code].main.input.i3.option[2]}
               name="productFreshness"
               id="option3"
               onClick={() => setValue({ ...value, productFreshness: "Refurbished" })}
+              disabled={loading || disabled ? true : false}
             />
           </fieldset>
           <Warning label={lang[code].main.warning.w3} displayBoolean={warning.w3 ? (value.productFreshness ? false : true) : false} />
@@ -235,6 +254,7 @@ export default function Main() {
             onClick={() => setWarning({ ...warning, w4: true })}
             onChange={handleImageOfProduct}
             classBoolean={warning.w4 ? (value.imageOfProduct ? false : true) : false}
+            disabled={loading || disabled ? true : false}
           />
           <Warning label={lang[code].main.warning.w4} displayBoolean={warning.w4 ? (value.imageOfProduct ? false : true) : false} />
 
@@ -248,6 +268,7 @@ export default function Main() {
             rows={10}
             cols={50}
             classBoolean={warning.w5 ? (value.additionalDescription ? false : true) : false}
+            disabled={loading || disabled ? true : false}
           />
           <Warning label={lang[code].main.warning.w4} displayBoolean={warning.w5 ? (value.additionalDescription ? false : true) : false} />
 
@@ -259,6 +280,7 @@ export default function Main() {
             onClick={() => setWarning({ ...warning, w6: true })}
             onChange={(e) => setValue({ ...value, productPrice: e.target.value })}
             classBoolean={warning.w6 ? (value.productPrice ? false : true) : false}
+            disabled={loading || disabled ? true : false}
           />
           <Warning label={lang[code].main.warning.w4} displayBoolean={warning.w6 ? (value.productPrice ? false : true) : false} />
 
@@ -269,13 +291,22 @@ export default function Main() {
               type="button"
               onClick={generateRandomPrice}
               className="rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary"
+              disabled={loading || disabled ? true : false}
             >
               {lang[code].main.button.b1}
             </button>
 
             {/* SUBMIT */}
-            <button type="button" onClick={handleSubmit} className="rounded bg-tailwindBlue px-4 py-2 text-white hover:bg-tailwindBlueSecondary">
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className={`flex items-center justify-center gap-1 rounded ${
+                loading ? "cursor-wait bg-tailwindBlueSecondary/50" : "bg-tailwindBlue"
+              } px-4 py-2 text-white hover:bg-tailwindBlueSecondary`}
+              disabled={loading || disabled ? true : false}
+            >
               {editMode ? lang[code].main.button.b2[1] : lang[code].main.button.b2[0]}
+              {loading && <Image src={loadingAnimation} alt="Loading" width={20} height={0} loading="eager" />}
             </button>
           </div>
         </form>
@@ -292,6 +323,7 @@ export default function Main() {
             setValue({ ...value, searchProductName: e.target.value });
           }}
           classBoolean={false}
+          disabled={loading || disabled ? true : false}
         />
       </section>
 
@@ -332,6 +364,7 @@ export default function Main() {
                         type="button"
                         onClick={() => handleEdit(index)}
                         className="rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary"
+                        disabled={loading || disabled ? true : false}
                       >
                         {lang[code].main.table.button.b1}
                       </button>
@@ -341,6 +374,7 @@ export default function Main() {
                         type="button"
                         onClick={() => handleDelete(item.id)}
                         className="rounded bg-red-400 px-4 py-2 text-white hover:bg-red-500"
+                        disabled={loading || disabled ? true : false}
                       >
                         {lang[code].main.table.button.b2}
                       </button>

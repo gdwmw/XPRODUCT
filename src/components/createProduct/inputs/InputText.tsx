@@ -1,13 +1,14 @@
-type InputText = {
+type InputTextProps = {
   label: string;
   name: string;
   value: string;
   onClick: () => void;
   onChange: (e: any) => void;
   classBoolean: boolean;
+  disabled:boolean
 };
 
-export default function InputText({ label, name, value, onClick, onChange, classBoolean }: InputText) {
+export default function InputText({ label, name, value, onClick, onChange, classBoolean, disabled }: InputTextProps) {
   return (
     <label htmlFor={name}>
       <span>{label}</span>
@@ -23,6 +24,7 @@ export default function InputText({ label, name, value, onClick, onChange, class
             ? "w-full rounded border-2 border-red-300 px-4 py-2 outline-none focus:border-tailwindBlue"
             : "w-full rounded border-2 border-gray-200 px-4 py-2 outline-none focus:border-tailwindBlue"
         }
+        disabled={disabled}
       />
     </label>
   );
