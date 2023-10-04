@@ -46,18 +46,18 @@ export default function Main() {
   const session = useSession();
 
   // DISABLED INPUTS
-  const disabled = session.data?.user.role === "user" ? true : false;
+  const disabled: boolean = session.data?.user.role === "user" ? true : false;
 
   // REDUX LANGUAGE
   const lang = locale;
   const code: number = useSelector((state: any) => state.lang.code);
 
   // API RESPOND DATA STATE
-  const [resData, setResData] = useState([]);
+  const [resData, setResData] = useState<interfaceValue[]>([]);
 
   // API GET DATA
   const getData = async () => {
-    const res = await fetchProductData();
+    const res: interfaceValue[] = await fetchProductData();
     setResData(res);
   };
   useEffect(() => {
@@ -94,11 +94,11 @@ export default function Main() {
 
   // HANDLE IMAGE OF PRODUCT
   const handleImageOfProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    const file: File | undefined = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
+      const reader: FileReader = new FileReader();
       reader.onload = (e) => {
-        const result = e.target?.result as string;
+        const result: string = e.target?.result as string;
         setValue({ ...value, imageOfProduct: result });
       };
       reader.readAsDataURL(file);
@@ -107,9 +107,9 @@ export default function Main() {
 
   // GENERATE RANDOM PRICE
   const generateRandomPrice = () => {
-    const minPrice = 1;
-    const maxPrice = 1000;
-    const randomPrice = Math.floor(Math.random() * (maxPrice - minPrice + 1)) + minPrice;
+    const minPrice: number = 1;
+    const maxPrice: number = 1000;
+    const randomPrice: number = Math.floor(Math.random() * (maxPrice - minPrice + 1)) + minPrice;
     setValue({ ...value, productPrice: randomPrice });
   };
 
@@ -159,7 +159,9 @@ export default function Main() {
   };
 
   // SEARCH BY PRODUCT NAME
-  const filteredData = resData.filter((item: interfaceValue) => item.productName.toLowerCase().includes(value.searchProductName.toLowerCase()));
+  const filteredData: interfaceValue[] = resData.filter((item: interfaceValue) =>
+    item.productName.toLowerCase().includes(value.searchProductName.toLowerCase()),
+  );
 
   // HANDLE EDIT
   const handleEdit = (index: number) => {
@@ -173,7 +175,7 @@ export default function Main() {
 
   // HANDLE DELETE
   const handleDelete = async (id: number) => {
-    const deleteConfirm = window.confirm(lang[code].main.table.confirm);
+    const deleteConfirm: boolean = window.confirm(lang[code].main.table.confirm);
     if (deleteConfirm) {
       await deleteProductDataById(id);
       getData();

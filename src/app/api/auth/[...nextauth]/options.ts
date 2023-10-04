@@ -17,9 +17,9 @@ export const options: NextAuthOptions = {
       async authorize(credentials: any) {
         const { username, password } = credentials;
         try {
-          const res = await fetch("https://650c816247af3fd22f67b58e.mockapi.io/Account");
+          const res: Response = await fetch("https://650c816247af3fd22f67b58e.mockapi.io/Account");
           const data: interfaceData[] = await res.json();
-          const user = data.find((item) => item.username === username && item.password === password);
+          const user: interfaceData | undefined = data.find((item) => item.username === username && item.password === password);
           if (user) {
             return user;
           } else {

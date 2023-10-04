@@ -3,7 +3,7 @@
 // IMPORT LIBRARIES
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { signIn, useSession } from "next-auth/react";
+import { SignInResponse, signIn, useSession } from "next-auth/react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
@@ -14,13 +14,14 @@ import InputPassword from "@/components/login/inputs/InputPassword";
 import Warning from "@/components/login/inputs/Warning";
 import imgXPRODUCT from "@/images/XPRODUCT.png";
 import loadingAnimation from "@/images/Loading.svg";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export default function Login() {
   // USE SESSION
   const session = useSession();
 
   // USE ROUTER
-  const router = useRouter();
+  const router:AppRouterInstance = useRouter();
 
   // USERNAME & PASSWORD STATE
   const [username, setUsername] = useState<string>("");
@@ -41,13 +42,13 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res: any = await signIn(`credentials`, {
+      const res: SignInResponse|undefined = await signIn(`credentials`, {
         username,
         password,
         redirect: false,
       });
 
-      if (res.error) {
+      if (res?.error) {
         setWarning(true);
         setLoading(false);
         return;

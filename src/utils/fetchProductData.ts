@@ -1,4 +1,4 @@
-const API_ENDPOINT = "https://650c816247af3fd22f67b58e.mockapi.io/ProductData";
+const API_ENDPOINT: string = "https://650c816247af3fd22f67b58e.mockapi.io/ProductData";
 
 async function handleResponse(response: Response) {
   if (!response.ok) {
@@ -9,7 +9,7 @@ async function handleResponse(response: Response) {
 
 async function fetchProductData() {
   try {
-    const response = await fetch(API_ENDPOINT, { cache: "default" });
+    const response: Response = await fetch(API_ENDPOINT, { cache: "default" });
     return handleResponse(response);
   } catch (error) {
     console.error("An error occurred while retrieving data:", error);
@@ -19,7 +19,7 @@ async function fetchProductData() {
 
 async function fetchProductDataById(id: number) {
   try {
-    const response = await fetch(`${API_ENDPOINT}/${id}`, { cache: "default" });
+    const response: Response = await fetch(`${API_ENDPOINT}/${id}`, { cache: "default" });
     return handleResponse(response);
   } catch (error) {
     console.error("An error occurred while retrieving data:", error);
@@ -35,12 +35,11 @@ type ProductDataProps = {
   imageOfProduct: string;
   additionalDescription: string;
   productPrice: number;
-  searchProductName: string;
 };
 
 async function createProductData(productData: ProductDataProps) {
   try {
-    const response = await fetch(API_ENDPOINT, {
+    const response: Response = await fetch(API_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,10 +53,19 @@ async function createProductData(productData: ProductDataProps) {
   }
 }
 
+type EditedData = {
+  productName: string;
+  productCategory: string;
+  productFreshness: string;
+  imageOfProduct: string;
+  additionalDescription: string;
+  productPrice: number;
+};
+
 async function updateProductData(updatedData: ProductDataProps) {
   try {
-    const id = updatedData.id;
-    const editedData = {
+    const id: number = updatedData.id;
+    const editedData: EditedData = {
       productName: updatedData.productName,
       productCategory: updatedData.productCategory,
       productFreshness: updatedData.productFreshness,
@@ -65,7 +73,7 @@ async function updateProductData(updatedData: ProductDataProps) {
       additionalDescription: updatedData.additionalDescription,
       productPrice: updatedData.productPrice,
     };
-    const response = await fetch(`${API_ENDPOINT}/${id}`, {
+    const response: Response = await fetch(`${API_ENDPOINT}/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -81,7 +89,7 @@ async function updateProductData(updatedData: ProductDataProps) {
 
 async function deleteProductDataById(id: number) {
   try {
-    const response = await fetch(`${API_ENDPOINT}/${id}`, { method: "DELETE" });
+    const response: Response = await fetch(`${API_ENDPOINT}/${id}`, { method: "DELETE" });
     return handleResponse(response);
   } catch (error) {
     console.error("An error occurred while deleting data:", error);
