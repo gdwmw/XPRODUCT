@@ -93,8 +93,9 @@ export default function Footer() {
         <div className="space-y-4 text-center sm:text-left">
           <h4 className="text-xl font-bold text-tailwindGreen">Our Social Networks</h4>
           <p className="text-gray-600">
-            Cras fermentum odio eu feugiat lide par
-            <br /> naso tierra videa magna derita valies
+            Explore our vibrant social media presence and connect
+            <br />
+            with us for exciting updates and valuable insights
           </p>
           <div className="flex justify-center space-x-4 sm:justify-start">
             <div className="h-6 w-6 rounded-full bg-tailwindGreenSecondary"></div>

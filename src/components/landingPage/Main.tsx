@@ -58,7 +58,7 @@ export default function Main() {
         <div className="container mx-auto space-y-10 px-10 text-center">
           <div className="space-y-4">
             <h2 className="text-4xl font-bold text-tailwindBlue">Join Our Newsletter</h2>
-            <p className="text-gray-600">Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            <p className="text-gray-600">Discover captivating stories that will leave you spellbound join our newsletter today</p>
           </div>
           <form onSubmit={handleSubmit} className="flex flex-col items-center justify-center gap-y-3 sm:flex-row sm:gap-x-4">
             <input
