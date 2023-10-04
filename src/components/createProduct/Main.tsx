@@ -37,7 +37,7 @@ import InputNumber from "./inputs/InputNumber";
 import Warning from "./inputs/Warning";
 
 // IMPORT UTILS
-import { getProductData, getProductDataId, postProductData, putProductData, deleteProductData } from "@/utils/fetchProductData";
+import { fetchProductData, fetchProductDataById, createProductData, updateProductData, deleteProductDataById } from "@/utils/fetchProductData";
 
 export default function Main() {
   // REDUX LANGUAGE
@@ -49,7 +49,7 @@ export default function Main() {
 
   // API GET DATA
   const getData = async () => {
-    const res = await getProductData();
+    const res = await fetchProductData();
     setResData(res);
   };
   useEffect(() => {
@@ -105,7 +105,7 @@ export default function Main() {
   // HANDLE SUBMIT
   const handleSubmit = async () => {
     if (editMode) {
-      await putProductData(value);
+      await updateProductData(value);
       getData();
       setValue({
         ...value,
@@ -127,7 +127,7 @@ export default function Main() {
       value.additionalDescription &&
       value.productPrice
     ) {
-      await postProductData(value);
+      await createProductData(value);
       getData();
       setValue({
         ...value,
@@ -144,7 +144,7 @@ export default function Main() {
     }
   };
 
-  // SEARCH
+  // SEARCH BY PRODUCT NAME
   const filteredData = resData.filter((item: interfaceValue) => item.productName.toLowerCase().includes(value.searchProductName.toLowerCase()));
 
   // HANDLE EDIT
@@ -161,7 +161,7 @@ export default function Main() {
   const handleDelete = async (id: number) => {
     const deleteConfirm = window.confirm(lang[code].main.table.confirm);
     if (deleteConfirm) {
-      await deleteProductData(id);
+      await deleteProductDataById(id);
       getData();
     }
   };
@@ -269,25 +269,19 @@ export default function Main() {
               type="button"
               onClick={generateRandomPrice}
               className="rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary"
-              disabled
             >
               {lang[code].main.button.b1}
             </button>
 
             {/* SUBMIT */}
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className="rounded bg-tailwindBlue px-4 py-2 text-white hover:bg-tailwindBlueSecondary"
-              disabled
-            >
+            <button type="button" onClick={handleSubmit} className="rounded bg-tailwindBlue px-4 py-2 text-white hover:bg-tailwindBlueSecondary">
               {editMode ? lang[code].main.button.b2[1] : lang[code].main.button.b2[0]}
             </button>
           </div>
         </form>
       </section>
 
-      {/* SEARCH */}
+      {/* SEARCH BY PRODUCT NAME */}
       <section className="mt-5 w-[300px]">
         <InputText
           label={lang[code].main.search}
@@ -301,7 +295,7 @@ export default function Main() {
         />
       </section>
 
-      {/* TABLE */}
+      {/* TABLE LIST PRODUCT */}
       <section className="mt-5 overflow-scroll">
         <label htmlFor="listOfProduct">
           <span>{lang[code].main.table.label}</span>
@@ -338,7 +332,6 @@ export default function Main() {
                         type="button"
                         onClick={() => handleEdit(index)}
                         className="rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary"
-                        disabled
                       >
                         {lang[code].main.table.button.b1}
                       </button>
@@ -348,7 +341,6 @@ export default function Main() {
                         type="button"
                         onClick={() => handleDelete(item.id)}
                         className="rounded bg-red-400 px-4 py-2 text-white hover:bg-red-500"
-                        disabled
                       >
                         {lang[code].main.table.button.b2}
                       </button>

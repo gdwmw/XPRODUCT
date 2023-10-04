@@ -15,9 +15,9 @@ export default withAuth(
       return NextResponse.rewrite(new URL("/", request.url));
     }
 
-    if (request.nextUrl.pathname.startsWith("/admin/createproduct") && request.nextauth.token?.role !== "admin") {
-      return NextResponse.rewrite(new URL("/", request.url));
-    }
+    // if (request.nextUrl.pathname.startsWith("/admin/createproduct") && request.nextauth.token?.role !== "admin") {
+    //   return NextResponse.rewrite(new URL("/", request.url));
+    // }
   },
   {
     callbacks: {
@@ -26,4 +26,9 @@ export default withAuth(
   },
 );
 
-export const config = { matcher: ["/createproduct", "/admin/createproduct"] };
+export const config = {
+  matcher: [
+    "/createproduct",
+    // , "/admin/createproduct"
+  ],
+};

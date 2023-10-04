@@ -1,8 +1,8 @@
 // COMPONENTS
-import Welcome from "@/components/createProduct/Welcome";
-import Header from "@/components/createProduct/Header";
-import Main from "@/components/createProduct/Main";
-import Footer from "@/components/createProduct/Footer";
+import Welcome from "@/components/admin/createProduct/Welcome";
+import Header from "@/components/admin/createProduct/Header";
+import Main from "@/components/admin/createProduct/Main";
+import Footer from "@/components/admin/createProduct/Footer";
 
 export default function CreateProduct() {
   return (

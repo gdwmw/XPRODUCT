@@ -23,7 +23,6 @@ export default function Select({ label, name, value, onClick, onChange, classBoo
             ? "w-full rounded border-2 border-red-300 px-4 py-2 outline-none focus:border-tailwindBlue"
             : "w-full rounded border-2 border-gray-200 px-4 py-2 outline-none focus:border-tailwindBlue"
         }
-        disabled
       >
         {children}
       </select>

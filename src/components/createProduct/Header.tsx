@@ -17,7 +17,7 @@ export default function Header() {
   const code: number = useSelector((state: any) => state.lang.code);
   const dispatch: any = useDispatch();
 
-  // LOGOUT
+  // LOGOUT/SIGN-OUT
   const logout = () => signOut();
   return (
     <header className="container mx-auto px-5 py-6 text-center">
@@ -30,8 +30,8 @@ export default function Header() {
       {/* DESCRIPTION */}
       <p>{lang[code].header.desc}</p>
 
-      {/* BUTTONS */}
-      <div className="-mx-[3px] mt-5 flex items-center justify-between text-xs sm:mx-0 md:px-[46px] lg:px-[110px]">
+      {/* NAVIGATION BAR */}
+      <nav className="-mx-[3px] mt-5 flex items-center justify-between text-xs sm:mx-0 md:px-[46px] lg:px-[110px]">
         <div className="flex items-center justify-center gap-2">
           {/* DASHBOARD */}
           <Link href={"/"}>
@@ -59,7 +59,7 @@ export default function Header() {
           </button>
           <p>{`] -`}</p>
         </div>
-      </div>
+      </nav>
     </header>
   );
 }
