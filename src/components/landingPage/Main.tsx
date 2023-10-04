@@ -31,20 +31,11 @@ export default function Main() {
               <p>XProduct is the best product management website that will really help you in managing your products</p>
             </div>
             <div className="space-x-10">
-              {session.status === "unauthenticated" ? (
-                <Link href={"/login"}>
-                  <button type="button" className="rounded-full bg-tailwindBlue px-6 py-3 font-bold text-white hover:bg-tailwindBlueSecondary">
-                    Get Started
-                  </button>
-                </Link>
-              ) : (
-                <Link href={session.data?.user.role === "user" ? "/createproduct" : "/admin/createproduct"}>
-                  <button type="button" className="rounded-full bg-tailwindBlue px-6 py-3 font-bold text-white hover:bg-tailwindBlueSecondary">
-                    Get Started
-                  </button>
-                </Link>
-              )}
-
+              <Link href={session.status === "unauthenticated" ? "/login" : "/createproduct"}>
+                <button type="button" className="rounded-full bg-tailwindBlue px-6 py-3 font-bold text-white hover:bg-tailwindBlueSecondary">
+                  {session.status === "unauthenticated" ? "Get Started" : "Create Product"}
+                </button>
+              </Link>
               <a
                 href="https://academy.alterra.id/"
                 target="_blank"
