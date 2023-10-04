@@ -290,7 +290,9 @@ export default function Main() {
             <button
               type="button"
               onClick={generateRandomPrice}
-              className="rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary"
+              className={`rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary ${
+                loading || (disabled && "cursor-not-allowed")
+              }`}
               disabled={loading || disabled ? true : false}
             >
               {lang[code].main.button.b1}
@@ -302,7 +304,7 @@ export default function Main() {
               onClick={handleSubmit}
               className={`flex items-center justify-center gap-1 rounded ${
                 loading ? "cursor-wait bg-tailwindBlueSecondary/50" : "bg-tailwindBlue"
-              } px-4 py-2 text-white hover:bg-tailwindBlueSecondary`}
+              } px-4 py-2 text-white hover:bg-tailwindBlueSecondary ${disabled && "cursor-not-allowed"}`}
               disabled={loading || disabled ? true : false}
             >
               {editMode ? lang[code].main.button.b2[1] : lang[code].main.button.b2[0]}
@@ -363,7 +365,9 @@ export default function Main() {
                       <button
                         type="button"
                         onClick={() => handleEdit(index)}
-                        className="rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary"
+                        className={`rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary ${
+                          loading || (disabled && "cursor-not-allowed")
+                        }`}
                         disabled={loading || disabled ? true : false}
                       >
                         {lang[code].main.table.button.b1}
@@ -373,7 +377,7 @@ export default function Main() {
                       <button
                         type="button"
                         onClick={() => handleDelete(item.id)}
-                        className="rounded bg-red-400 px-4 py-2 text-white hover:bg-red-500"
+                        className={`rounded bg-red-400 px-4 py-2 text-white hover:bg-red-500 ${loading || (disabled && "cursor-not-allowed")}`}
                         disabled={loading || disabled ? true : false}
                       >
                         {lang[code].main.table.button.b2}

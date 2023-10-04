@@ -22,7 +22,7 @@ export default function InputFile({ label, name, accept, onClick, onChange, clas
         className={
           classBoolean
             ? "w-full rounded border-2 border-red-300 px-4 py-2 outline-none focus:border-tailwindBlue"
-            : "w-full rounded border-2 border-gray-200 px-4 py-2 outline-none focus:border-tailwindBlue"
+            : `w-full rounded border-2 border-gray-200 px-4 py-2 outline-none focus:border-tailwindBlue ${disabled && "cursor-not-allowed"}`
         }
         disabled={disabled}
       />
