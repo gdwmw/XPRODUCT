@@ -106,10 +106,10 @@ export default function Login() {
               {/* LOGIN BUTTON */}
               <button
                 type="submit"
-                className={`w-full rounded-md ${loading ? "bg-tailwindGreenSecondary/50" : "bg-tailwindGreen"} px-4 py-2 text-white ${
+                className={`w-full rounded-md ${loading ? "cursor-wait bg-tailwindGreenSecondary/50" : "bg-tailwindGreen"} px-4 py-2 text-white ${
                   loading ? "" : "hover:bg-tailwindGreenSecondary"
                 } focus:outline-none`}
-                disabled={loading && true}
+                disabled={loading}
               >
                 <div className="flex items-center justify-center gap-1">
                   Login
