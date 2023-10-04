@@ -1,26 +1,33 @@
-const ENDPOINT_URL = "https://650c816247af3fd22f67b58e.mockapi.io/ProductData";
+const API_ENDPOINT = "https://650c816247af3fd22f67b58e.mockapi.io/ProductData";
 
-async function getProductData() {
+async function handleResponse(response: Response) {
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  return response.json();
+}
+
+async function fetchProductData() {
   try {
-    const res = await fetch(ENDPOINT_URL, { cache: "default" });
-    return res.json();
+    const response = await fetch(API_ENDPOINT, { cache: "default" });
+    return handleResponse(response);
   } catch (error) {
     console.error("An error occurred while retrieving data:", error);
     throw error;
   }
 }
 
-async function getProductDataId(id: number) {
+async function fetchProductDataById(id: number) {
   try {
-    const res = await fetch(`${ENDPOINT_URL}/${id}`, { cache: "default" });
-    return res.json();
+    const response = await fetch(`${API_ENDPOINT}/${id}`, { cache: "default" });
+    return handleResponse(response);
   } catch (error) {
     console.error("An error occurred while retrieving data:", error);
     throw error;
   }
 }
 
-type postProductDataProps = {
+type ProductDataProps = {
   id: number;
   productName: string;
   productCategory: string;
@@ -31,55 +38,55 @@ type postProductDataProps = {
   searchProductName: string;
 };
 
-async function postProductData(value: postProductDataProps) {
+async function createProductData(productData: ProductDataProps) {
   try {
-    const res = await fetch(ENDPOINT_URL, {
+    const response = await fetch(API_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(value),
+      body: JSON.stringify(productData),
     });
-    return res.json();
+    return handleResponse(response);
   } catch (error) {
     console.error("An error occurred while sending data:", error);
     throw error;
   }
 }
 
-async function putProductData(value: any) {
+async function updateProductData(updatedData: ProductDataProps) {
   try {
-    const id = value.id;
-    const editedValue = {
-      productName: value.productName,
-      productCategory: value.productCategory,
-      productFreshness: value.productFreshness,
-      imageOfProduct: value.imageOfProduct,
-      additionalDescription: value.additionalDescription,
-      productPrice: value.productPrice,
+    const id = updatedData.id;
+    const editedData = {
+      productName: updatedData.productName,
+      productCategory: updatedData.productCategory,
+      productFreshness: updatedData.productFreshness,
+      imageOfProduct: updatedData.imageOfProduct,
+      additionalDescription: updatedData.additionalDescription,
+      productPrice: updatedData.productPrice,
     };
-    const res = await fetch(`${ENDPOINT_URL}/${id}`, {
+    const response = await fetch(`${API_ENDPOINT}/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(editedValue),
+      body: JSON.stringify(editedData),
     });
-    return res.json();
+    return handleResponse(response);
   } catch (error) {
     console.error("An error occurred while updating data:", error);
     throw error;
   }
 }
 
-async function deleteProductData(id: number) {
+async function deleteProductDataById(id: number) {
   try {
-    const res = await fetch(`${ENDPOINT_URL}/${id}`, { method: "DELETE" });
-    return res.json();
+    const response = await fetch(`${API_ENDPOINT}/${id}`, { method: "DELETE" });
+    return handleResponse(response);
   } catch (error) {
     console.error("An error occurred while deleting data:", error);
     throw error;
   }
 }
 
-export { getProductData, getProductDataId, postProductData, putProductData, deleteProductData };
+export { fetchProductData, fetchProductDataById, createProductData, updateProductData, deleteProductDataById };
