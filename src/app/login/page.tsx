@@ -62,11 +62,7 @@ export default function Login() {
     if (session.status === "authenticated") {
       setLoading(true);
       setTimeout(() => {
-        if (session.data?.user.role === "admin") {
-          router.push("/admin/createproduct");
-        } else {
-          router.push("/createproduct");
-        }
+        router.push("/createproduct");
       }, 1000);
     }
   }, [session, router]);

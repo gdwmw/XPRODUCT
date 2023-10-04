@@ -1,5 +1,4 @@
 import type { NextAuthOptions } from "next-auth";
-// import GitHubProvider from "next-auth/providers/github";
 import CredentialProvider from "next-auth/providers/credentials";
 
 interface interfaceData {
@@ -12,10 +11,6 @@ interface interfaceData {
 
 export const options: NextAuthOptions = {
   providers: [
-    // GitHubProvider({
-    //   clientId: process.env.GITHUB_ID as string,
-    //   clientSecret: process.env.GITHUB_SECRET as string,
-    // }),
     CredentialProvider({
       name: "Credentials",
       credentials: {},
@@ -54,9 +49,5 @@ export const options: NextAuthOptions = {
   session: { strategy: "jwt" },
   pages: {
     signIn: "/login",
-    // signOut: "/auth/signout",
-    // error: "/auth/error",
-    // verifyRequest: "/auth/verify-request",
-    // newUser: "/auth/new-user",
   },
 };
