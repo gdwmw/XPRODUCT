@@ -291,7 +291,7 @@ export default function Main() {
               type="button"
               onClick={generateRandomPrice}
               className={`rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary ${
-                loading || (disabled && "cursor-not-allowed")
+                loading || disabled ? "cursor-not-allowed" : ""
               }`}
               disabled={loading || disabled ? true : false}
             >
@@ -366,7 +366,7 @@ export default function Main() {
                         type="button"
                         onClick={() => handleEdit(index)}
                         className={`rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary ${
-                          loading || (disabled && "cursor-not-allowed")
+                          loading || disabled ? "cursor-not-allowed" : ""
                         }`}
                         disabled={loading || disabled ? true : false}
                       >
@@ -377,7 +377,7 @@ export default function Main() {
                       <button
                         type="button"
                         onClick={() => handleDelete(item.id)}
-                        className={`rounded bg-red-400 px-4 py-2 text-white hover:bg-red-500 ${loading || (disabled && "cursor-not-allowed")}`}
+                        className={`rounded bg-red-400 px-4 py-2 text-white hover:bg-red-500 ${loading || disabled ? "cursor-not-allowed" : ""}`}
                         disabled={loading || disabled ? true : false}
                       >
                         {lang[code].main.table.button.b2}
