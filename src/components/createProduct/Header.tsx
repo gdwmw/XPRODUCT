@@ -32,12 +32,10 @@ export default function Header() {
 
       {/* NAVIGATION BAR */}
       <nav className="-mx-[3px] mt-5 flex items-center justify-between text-xs sm:mx-0 md:px-[46px] lg:px-[110px]">
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex items-center gap-2">
           {/* DASHBOARD */}
-          <Link href={"/"}>
-            <button type="button" className="hover:text-tailwindBlue">
-              DASHBOARD
-            </button>
+          <Link href={"/"} className="hover:text-tailwindBlue">
+            DASHBOARD
           </Link>
           <p>-</p>
           {/* LOGOUT */}
@@ -46,7 +44,7 @@ export default function Header() {
           </button>
         </div>
         {/* CHANGE LANGUAGE */}
-        <div className="flex items-center justify-center">
+        <div className="flex items-center gap-1">
           <p>{`- [`}</p>
           {/* ENGLISH */}
           <button type="button" onClick={() => dispatch(setLangCode(0))} className={code === 0 ? "text-tailwindBlue" : "text-black"}>

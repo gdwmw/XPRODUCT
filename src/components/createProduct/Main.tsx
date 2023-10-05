@@ -183,8 +183,8 @@ export default function Main() {
   };
   return (
     <main className="container mx-auto px-4 md:px-16 lg:px-32">
-      <h2 className="mb-4 text-2xl font-semibold">{lang[code].main.title}</h2>
       <section>
+        <h2 className="mb-4 text-2xl font-semibold">{lang[code].main.title}</h2>
         <form className="flex flex-col gap-3">
           {/* PRODUCT NAME */}
           <InputText
