@@ -35,12 +35,12 @@ export default function Header() {
         <div className="flex items-center gap-2">
           {/* LANDING PAGE */}
           <Link href={"/"} className="hover:text-tailwindBlue">
-            {lang[code].header.nav.button.b1}
+            {lang[code].header.button.b1}
           </Link>
           <p>-</p>
           {/* LOGOUT */}
           <button type="button" onClick={() => logout()} className="hover:text-tailwindBlue">
-            {lang[code].header.nav.button.b2}
+            {lang[code].header.button.b2}
           </button>
         </div>
         {/* CHANGE LANGUAGE */}

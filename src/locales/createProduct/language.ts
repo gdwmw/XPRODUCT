@@ -6,7 +6,7 @@ const locale = [
     header: {
       title: "Create Product",
       desc: "Below is an example form built entirely with Tailwind form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.",
-      nav: { button: { b1: "LANDING PAGE", b2: "LOGOUT" } },
+      button: { b1: "LANDING PAGE", b2: "LOGOUT" },
     },
     main: {
       title: "Detail Product",
@@ -50,7 +50,7 @@ const locale = [
     header: {
       title: "Buat Produk",
       desc: "Di bawah ini adalah contoh formulir yang dibangun sepenuhnya dengan kontrol formulir Tailwind. Setiap kelompok formulir yang diperlukan memiliki status validasi yang dapat dipicu dengan mencoba mengirimkan formulir tanpa menyelesaikannya.",
-      nav: { button: { b1: "HALAMAN ARAHAN", b2: "KELUAR" } },
+      button: { b1: "HALAMAN ARAHAN", b2: "KELUAR" },
     },
 
     main: {
