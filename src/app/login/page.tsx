@@ -111,7 +111,7 @@ export default function Login() {
               } px-4 py-2 text-white ${loading ? "" : "hover:bg-tailwindGreenSecondary"} focus:outline-none`}
               disabled={loading}
             >
-              <span>Login</span>
+              <span>{lang[code].main.button}</span>
               {loading && <Image src={loadingAnimation} alt="Loading" width={20} height={0} loading="eager" />}
             </button>
           </form>

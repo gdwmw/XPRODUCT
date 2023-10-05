@@ -12,6 +12,7 @@ const locale = [
         i2: "Password :",
       },
       warning: "Incorrect Username or Password",
+      button: "Login",
     },
     footer: {
       copyright: "© 2023 Gede Dewo Wahyu M.W. All rights reserved.",
@@ -29,6 +30,7 @@ const locale = [
         i2: "Kata Sandi :",
       },
       warning: "Nama Pengguna atau Kata Sandi salah",
+      button: "Masuk",
     },
     footer: {
       copyright: "© 2023 Gede Dewo Wahyu M.W. Seluruh hak cipta dilindungi.",
