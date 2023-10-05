@@ -33,14 +33,14 @@ export default function Header() {
       {/* NAVIGATION BAR */}
       <nav className="-mx-[3px] mt-5 flex items-center justify-between text-xs sm:mx-0 md:px-[46px] lg:px-[110px]">
         <div className="flex items-center gap-2">
-          {/* DASHBOARD */}
+          {/* LANDING PAGE */}
           <Link href={"/"} className="hover:text-tailwindBlue">
-            DASHBOARD
+            {lang[code].header.nav.button.b1}
           </Link>
           <p>-</p>
           {/* LOGOUT */}
           <button type="button" onClick={() => logout()} className="hover:text-tailwindBlue">
-            LOGOUT
+            {lang[code].header.nav.button.b2}
           </button>
         </div>
         {/* CHANGE LANGUAGE */}
