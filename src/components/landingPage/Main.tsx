@@ -23,24 +23,26 @@ export default function Main() {
 
   return (
     <main>
+      {/* HERO SECTION */}
       <section id="Home" className="bg-gradient-to-b from-tailwindGreen to-white pb-56 pt-40 md:pt-48 ">
         <div className="container mx-auto px-10 md:grid md:grid-cols-2">
-          <div className="my-auto space-y-10">
-            <div className="space-y-4 text-white">
+          <div className="my-auto space-y-10 text-white">
+            <div className="space-y-4">
               <h1 className="text-5xl font-bold">Better Solution For Your Business</h1>
               <p>XProduct is the best product management website that will really help you in managing your products</p>
             </div>
             <div className="space-x-10">
-              <Link href={session.status === "unauthenticated" ? "/login" : "/createproduct"}>
-                <button type="button" className="rounded-full bg-tailwindBlue px-6 py-3 font-bold text-white hover:bg-tailwindBlueSecondary">
-                  {session.status === "unauthenticated" ? "Get Started" : "Create Product"}
-                </button>
+              <Link
+                href={session.status === "unauthenticated" ? "/login" : "/createproduct"}
+                className="inline-block rounded-full bg-tailwindBlue px-6 py-3 font-bold hover:bg-tailwindBlueSecondary"
+              >
+                {session.status === "unauthenticated" ? "Get Started" : "Create Product"}
               </Link>
               <a
                 href="https://academy.alterra.id/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full px-6 py-3 font-bold text-white hover:bg-tailwindBlue/20 hover:text-tailwindBlue"
+                className="hidden rounded-full px-6 py-3 font-bold text-white hover:bg-tailwindBlue/20 hover:text-tailwindBlue min-[430px]:inline-block"
               >
                 Watch Video
               </a>
@@ -54,6 +56,7 @@ export default function Main() {
         </div>
       </section>
 
+      {/* NEWSLETTER */}
       <section id="Newsletter" className="bg-white py-36">
         <div className="container mx-auto space-y-10 px-10 text-center">
           <div className="space-y-4">
@@ -70,7 +73,7 @@ export default function Main() {
               placeholder="Enter your email"
               className="w-full rounded-full border-2 border-gray-300 px-4 py-2.5 outline-none focus:border-tailwindBlue sm:w-[700px]"
             />
-            <button type="submit" className="inline-block rounded-full bg-tailwindBlue px-6 py-3 font-bold text-white hover:bg-tailwindBlueSecondary">
+            <button type="submit" className="rounded-full bg-tailwindBlue px-6 py-3 font-bold text-white hover:bg-tailwindBlueSecondary">
               Subscribe
             </button>
           </form>
