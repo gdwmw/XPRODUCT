@@ -154,6 +154,7 @@ export default function Main() {
       });
       setWarning({ ...warning, w1: false, w2: false, w3: false, w4: false, w5: false, w6: false });
     } else {
+      setLoading(false);
       setWarning({ ...warning, w1: true, w2: true, w3: true, w4: true, w5: true, w6: true });
     }
   };
@@ -177,8 +178,10 @@ export default function Main() {
   const handleDelete = async (id: number) => {
     const deleteConfirm: boolean = window.confirm(lang[code].main.table.confirm);
     if (deleteConfirm) {
+      setLoading(true);
       await deleteProductDataById(id);
       getData();
+      setLoading(false);
     }
   };
   return (
