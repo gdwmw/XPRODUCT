@@ -135,7 +135,15 @@ export default function Main() {
       });
       setWarning({ ...warning, w1: false, w2: false, w3: false, w4: false, w5: false, w6: false });
       setEditMode(false);
-    } else if (value.productName.length >= 6 && value.productName.length <= 25 && value.productCategory && value.productFreshness && value.imageOfProduct && value.additionalDescription && value.productPrice) {
+    } else if (
+      value.productName.length >= 6 &&
+      value.productName.length <= 25 &&
+      value.productCategory &&
+      value.productFreshness &&
+      value.imageOfProduct &&
+      value.additionalDescription &&
+      value.productPrice
+    ) {
       await createProductData(value);
       await getData();
       setLoading(false);
@@ -158,7 +166,9 @@ export default function Main() {
   };
 
   // SEARCH BY PRODUCT NAME
-  const filteredData: interfaceValue[] = resData.filter((item: interfaceValue) => item.productName.toLowerCase().includes(value.searchProductName.toLowerCase()));
+  const filteredData: interfaceValue[] = resData.filter((item: interfaceValue) =>
+    item.productName.toLowerCase().includes(value.searchProductName.toLowerCase()),
+  );
 
   // HANDLE EDIT
   const handleEdit = (index: number) => {
@@ -223,16 +233,46 @@ export default function Main() {
           <Warning label={lang[code].main.warning.w3} displayBoolean={warning.w2 ? (value.productCategory ? false : true) : false} />
 
           {/* PRODUCT FRESHNESS */}
-          <fieldset className={`flex flex-col border-2 p-2 ${warning.w3 ? (value.productFreshness ? "border-gray-200" : "border-red-300") : "border-gray-200"}`}>
+          <fieldset
+            className={`flex flex-col border-2 p-2 ${
+              warning.w3 ? (value.productFreshness ? "border-gray-200" : "border-red-300") : "border-gray-200"
+            }`}
+          >
             <legend className="px-2 font-semibold">{lang[code].main.input.i3.label}</legend>
-            <InputRadio label={lang[code].main.input.i3.option[0]} name="productFreshness" id="option1" onClick={() => setValue({ ...value, productFreshness: "Brand New" })} disabled={loading || disabled ? true : false} />
-            <InputRadio label={lang[code].main.input.i3.option[1]} name="productFreshness" id="option2" onClick={() => setValue({ ...value, productFreshness: "Second Hand" })} disabled={loading || disabled ? true : false} />
-            <InputRadio label={lang[code].main.input.i3.option[2]} name="productFreshness" id="option3" onClick={() => setValue({ ...value, productFreshness: "Refurbished" })} disabled={loading || disabled ? true : false} />
+            <InputRadio
+              label={lang[code].main.input.i3.option[0]}
+              name="productFreshness"
+              id="option1"
+              onClick={() => setValue({ ...value, productFreshness: "Brand New" })}
+              disabled={loading || disabled ? true : false}
+            />
+            <InputRadio
+              label={lang[code].main.input.i3.option[1]}
+              name="productFreshness"
+              id="option2"
+              onClick={() => setValue({ ...value, productFreshness: "Second Hand" })}
+              disabled={loading || disabled ? true : false}
+            />
+            <InputRadio
+              label={lang[code].main.input.i3.option[2]}
+              name="productFreshness"
+              id="option3"
+              onClick={() => setValue({ ...value, productFreshness: "Refurbished" })}
+              disabled={loading || disabled ? true : false}
+            />
           </fieldset>
           <Warning label={lang[code].main.warning.w3} displayBoolean={warning.w3 ? (value.productFreshness ? false : true) : false} />
 
           {/* IMAGE OF PRODUCT */}
-          <InputFile label={lang[code].main.input.i4} name="imageOfProduct" accept="image/*" onClick={() => setWarning({ ...warning, w4: true })} onChange={handleImageOfProduct} classBoolean={warning.w4 ? (value.imageOfProduct ? false : true) : false} disabled={loading || disabled ? true : false} />
+          <InputFile
+            label={lang[code].main.input.i4}
+            name="imageOfProduct"
+            accept="image/*"
+            onClick={() => setWarning({ ...warning, w4: true })}
+            onChange={handleImageOfProduct}
+            classBoolean={warning.w4 ? (value.imageOfProduct ? false : true) : false}
+            disabled={loading || disabled ? true : false}
+          />
           <Warning label={lang[code].main.warning.w4} displayBoolean={warning.w4 ? (value.imageOfProduct ? false : true) : false} />
 
           {/* ADDITIONAL DESCRIPTION */}
@@ -264,7 +304,14 @@ export default function Main() {
           {/* BUTTONS */}
           <div className="flex items-center gap-5">
             {/* GENERATE RANDOM PRICE */}
-            <button type="button" onClick={generateRandomPrice} className={`rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary ${loading || disabled ? "cursor-not-allowed" : ""}`} disabled={loading || disabled ? true : false}>
+            <button
+              type="button"
+              onClick={generateRandomPrice}
+              className={`rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary ${
+                loading || disabled ? "cursor-not-allowed" : ""
+              }`}
+              disabled={loading || disabled ? true : false}
+            >
               {lang[code].main.button.b1}
             </button>
 
@@ -272,8 +319,12 @@ export default function Main() {
             <button
               type="button"
               onClick={handleSubmit}
-              className={`flex items-center justify-center gap-1 rounded px-4 py-2 text-white ${loading && loadingSubmit ? "cursor-wait bg-tailwindBlueSecondary/50" : "bg-tailwindBlue hover:bg-tailwindBlueSecondary"} ${disabled && "cursor-not-allowed"}`}
-              disabled={(loading && loadingSubmit) || disabled ? true : false}
+              className={`flex items-center justify-center gap-1 rounded px-4 py-2 text-white ${
+                loading && loadingSubmit
+                  ? "cursor-wait bg-tailwindBlueSecondary/50"
+                  : `bg-tailwindBlue hover:bg-tailwindBlueSecondary ${loading || disabled ? "cursor-not-allowed" : ""}`
+              }`}
+              disabled={loading || disabled ? true : false}
             >
               {editMode ? lang[code].main.button.b2[1] : lang[code].main.button.b2[0]}
               {loading && loadingSubmit && <Image src={loadingAnimation} alt="Loading" width={20} height={0} loading="eager" />}
@@ -330,7 +381,14 @@ export default function Main() {
                     {/* BUTTONS */}
                     <div className="flex items-center justify-center gap-2">
                       {/* EDIT */}
-                      <button type="button" onClick={() => handleEdit(index)} className={`rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary ${loading || disabled ? "cursor-not-allowed" : ""}`} disabled={loading || disabled ? true : false}>
+                      <button
+                        type="button"
+                        onClick={() => handleEdit(index)}
+                        className={`rounded bg-tailwindGreen px-4 py-2 text-white hover:bg-tailwindGreenSecondary ${
+                          loading || disabled ? "cursor-not-allowed" : ""
+                        }`}
+                        disabled={loading || disabled ? true : false}
+                      >
                         {lang[code].main.table.button.b1}
                       </button>
 
@@ -339,8 +397,12 @@ export default function Main() {
                         type="button"
                         onClick={() => handleDelete(index)}
                         onLoad={() => setLoadingDelete([...loadingDelete, false])}
-                        className={`flex items-center justify-center gap-1 rounded  px-4 py-2 text-white ${loading && loadingDelete[index] ? "cursor-wait bg-red-400/50" : "bg-red-400 hover:bg-red-500"} ${disabled && "cursor-not-allowed"}`}
-                        disabled={(loading && loadingDelete[index]) || disabled ? true : false}
+                        className={`flex items-center justify-center gap-1 rounded  px-4 py-2 text-white ${
+                          loading && loadingDelete[index]
+                            ? "cursor-wait bg-red-400/50"
+                            : `bg-red-400 hover:bg-red-500 ${loading || disabled ? "cursor-not-allowed" : ""}`
+                        } `}
+                        disabled={loading || disabled ? true : false}
                       >
                         {lang[code].main.table.button.b2}
                         {loading && loadingDelete[index] && <Image src={loadingAnimation} alt="Loading" width={20} height={0} loading="eager" />}
