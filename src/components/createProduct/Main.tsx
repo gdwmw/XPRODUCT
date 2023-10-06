@@ -90,7 +90,6 @@ export default function Main() {
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
   const [loadingDelete, setLoadingDelete] = useState<boolean[]>([]);
-  const [newLoadingDelete, setNewLoadingDelete] = useState<boolean[]>([]);
 
   // EDIT MODE STATE
   const [editMode, setEditMode] = useState<boolean>(false);
@@ -172,13 +171,19 @@ export default function Main() {
   };
 
   // HANDLE DELETE
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (index: number) => {
     const deleteConfirm: boolean = window.confirm(lang[code].main.table.confirm);
+    const id = index + 1;
     if (deleteConfirm) {
+      const newLoadingDelete = [...loadingDelete];
+      newLoadingDelete[index] = true;
       setLoading(true);
+      setLoadingDelete(newLoadingDelete);
       await deleteProductDataById(id);
-      getData();
+      await getData();
+      newLoadingDelete[index] = false;
       setLoading(false);
+      setLoadingDelete(newLoadingDelete);
     }
   };
   return (
@@ -330,8 +335,15 @@ export default function Main() {
                       </button>
 
                       {/* DELETE */}
-                      <button type="button" onClick={() => handleDelete(item.id)} className={`rounded bg-red-400 px-4 py-2 text-white hover:bg-red-500 ${loading || disabled ? "cursor-not-allowed" : ""}`} disabled={loading || disabled ? true : false}>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(index)}
+                        onLoad={() => setLoadingDelete([...loadingDelete, false])}
+                        className={`flex items-center justify-center gap-1 rounded  px-4 py-2 text-white ${loading && loadingDelete[index] ? "cursor-wait bg-red-400/50" : "bg-red-400 hover:bg-red-500"} ${disabled && "cursor-not-allowed"}`}
+                        disabled={(loading && loadingDelete[index]) || disabled ? true : false}
+                      >
                         {lang[code].main.table.button.b2}
+                        {loading && loadingDelete[index] && <Image src={loadingAnimation} alt="Loading" width={20} height={0} loading="eager" />}
                       </button>
                     </div>
                   </td>
