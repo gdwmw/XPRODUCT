@@ -121,7 +121,7 @@ export default function Main() {
     setLoadingSubmit(true);
     if (editMode) {
       await updateProductData(value);
-      getData();
+      await getData();
       setLoading(false);
       setLoadingSubmit(false);
       setValue({
@@ -137,7 +137,7 @@ export default function Main() {
       setEditMode(false);
     } else if (value.productName.length >= 6 && value.productName.length <= 25 && value.productCategory && value.productFreshness && value.imageOfProduct && value.additionalDescription && value.productPrice) {
       await createProductData(value);
-      getData();
+      await getData();
       setLoading(false);
       setLoadingSubmit(false);
       setValue({
