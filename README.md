@@ -1,4 +1,4 @@
 # XPRODUCT
-Practice assignments from Alterra Academy
+Practice Assignments From Alterra Academy
 
 
